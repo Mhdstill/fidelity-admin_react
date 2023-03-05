@@ -1,6 +1,6 @@
 import React from 'react';
 import SidebarItem from '../SidebarItem';
-import { faIdCard,faRectangleList, faClipboardList, faGift, faShop, faBagShopping,faUsers, faSignOutAlt, faCartShopping, faGear } from '@fortawesome/free-solid-svg-icons';
+import { faIdCard, faRectangleList, faClipboardList, faGift, faShop, faBagShopping, faUsers, faSignOutAlt, faCartShopping, faGear } from '@fortawesome/free-solid-svg-icons';
 
 function Sidebar(props) {
 
@@ -14,42 +14,29 @@ function Sidebar(props) {
      */
     const menuItems = [
         {
-          id: "item_1",
-          itemName: "Menus",
-          faIcon: faShop,
-          subItems: [
-            {
-                id: "item_1-subItem_1",
-                itemName: "Produits",
-                redirectPath: '/admin/products',
-                faIcon: faBagShopping,
-            },
-            {
-                id: "item_1-subItem_2",
-                itemName: "Catégories",
-                redirectPath: '/admin/categories',
-                faIcon: faRectangleList,
-            }
-          ],
+            id: "item_1",
+            itemName: "Menus",
+            faIcon: faShop,
+            subItems: [
+                {
+                    id: "item_1-subItem_1",
+                    itemName: "Produits",
+                    redirectPath: '/admin/products',
+                    faIcon: faBagShopping,
+                },
+                {
+                    id: "item_1-subItem_2",
+                    itemName: "Catégories",
+                    redirectPath: '/admin/categories',
+                    faIcon: faRectangleList,
+                }
+            ],
         },
         {
             id: "item_2",
-            itemName: "Programmes",
-            faIcon: faIdCard,
-            subItems: [
-                {
-                    id: "item_2-subItem_1",
-                    itemName: "Bonus",
-                    redirectPath: '/admin/program/bonus',
-                    faIcon: faGift,
-                },
-                {
-                    id: "item_2-subItem_2",
-                    itemName: "Paramétrage",
-                    redirectPath: '/admin/program/settings',
-                    faIcon: faGear,
-                }
-              ],
+            itemName: "Bonus",
+            redirectPath: '/admin/program/bonus',
+            faIcon: faGift,
         },
         {
             id: "item_3",
@@ -69,18 +56,18 @@ function Sidebar(props) {
             redirectPath: '/admin/settings',
             faIcon: faGear,
         },
-        
+
     ];
 
-  return (
-    <div class="sidebar" id="mainSidebar">
-    <ul id="id_menu" class="sidebar-list-wrapper">
-        {menuItems.map((item) => (
-            <SidebarItem id= {item.id}redirectPath={item.redirectPath} faIcon={item.faIcon} itemName={item.itemName} isActive={item.isActive} subItems={item.subItems} />
-        ))}
-    </ul>
-</div>
-  );
+    return (
+        <div class="sidebar" id="mainSidebar">
+            <ul id="id_menu" class="sidebar-list-wrapper">
+                {menuItems.map((item) => (
+                    <SidebarItem id={item.id} redirectPath={item.redirectPath} faIcon={item.faIcon} itemName={item.itemName} isActive={item.isActive} subItems={item.subItems} />
+                ))}
+            </ul>
+        </div>
+    );
 }
 
 export default Sidebar;

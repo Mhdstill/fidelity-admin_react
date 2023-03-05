@@ -1,6 +1,6 @@
 import React from 'react';
-import ListPage from '../ListPage';
-import EllipsisDropdown from '../../components/EllipsisDropdown';
+import ListPage from '../../Default/ListPage';
+import EllipsisDropdown from '../../../../components/EllipsisDropdown';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 function ProductListPage(props) {

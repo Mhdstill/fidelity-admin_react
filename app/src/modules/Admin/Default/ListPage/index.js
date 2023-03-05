@@ -1,7 +1,7 @@
 import React from 'react';
-import TableList from '../../components/TableList';
-import ButtonDropdown from '../../components/ButtonDropdown';
-import Searchbar from '../../components/Searchbar';
+import TableList from '../../../../components/TableList';
+import ButtonDropdown from '../../../../components/ButtonDropdown';
+import Searchbar from '../../../../components/Searchbar';
 function ListPage(props) {
 
   const {TableHeaderItems = [], TableRowItems = [], entityName = '', buttonLabel = null, buttonItems = [], buttonRedirectTo = null} = props;
