@@ -1,7 +1,7 @@
 import React from 'react';
-import FormPage from '../../Default/FormPage';
+import AdminFormPage from '../../Default/AdminFormPage';
 
-function ProductNewPage(props) {
+function AdminProductNewPage(props) {
 
     const titleForm = "Création d'un produit";
     const fieldsBySteps = [
@@ -34,8 +34,8 @@ function ProductNewPage(props) {
     ];
 
     return (
-        <FormPage titleForm={titleForm} fieldsBySteps={fieldsBySteps} />
+        <AdminFormPage titleForm={titleForm} fieldsBySteps={fieldsBySteps} />
     );
 }
 
-export default ProductNewPage;
+export default AdminProductNewPage;

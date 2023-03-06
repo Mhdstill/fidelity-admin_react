@@ -1,25 +1,22 @@
-import logo from '../../../../logo.svg';
-import '../../../../App.css';
-import '../../../../Wast.css';
+import logo from '../../../logo.svg';
+import '../../../App.css';
+import '../../../Wast.css';
 import $ from 'jquery';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
-import AdminDefaultLayout from '../../../../components/Layouts/AdminDefaultLayout';
+import AdminDefaultLayout from '../../../components/Layouts/AdminDefaultLayout';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import HomePage from '../HomePage';
-import ProductNewPage from '../ProductPages/ProductNewPage';
-import ProductListPage from '../ProductPages/ProductListPage';
+import ProductNewPage from '../AdminProductPages/AdminProductNewPage';
+import ProductListPage from '../AdminProductPages/AdminProductListPage';
+import AdminLoginPage from '../../Default/AdminLoginPage';
+
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <AdminDefaultLayout />,
     children: [
-      { index: true, element: <HomePage /> },
-      {
-        path: '/test',
-        element: <HomePage />,
-      },
+      { index: true, element: <ProductListPage /> },
       {
         path: '/admin/products',
         element: <ProductListPage />,
@@ -27,8 +24,12 @@ const router = createBrowserRouter([
       {
         path: '/admin/product/new',
         element: <ProductNewPage />,
-      },
+      }
     ],
+  },
+  {
+    path: '/login',
+    element: <AdminLoginPage />
   }
 ]);
 

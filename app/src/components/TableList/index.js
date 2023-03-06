@@ -5,26 +5,31 @@ import { useState } from 'react';
 
 function TableList(props) {
 
+    function generateUniqueKey() {
+        return Math.random().toString(36).substr(2, 9);
+      }
+
+      
     const {entityName, HeaderItems, RowItems} = props;
 
     return (
-        <div class="block">
+        <div className="block">
             {entityName ? 
                 (
-                <div class="block-header">
-                    <h2>{entityName} <span class="table-count">{RowItems.length}</span></h2>
+                <div className="block-header">
+                    <h2>{entityName} <span className="table-count">{RowItems.length}</span></h2>
                 </div>
                 )
                 :
                 (<></>)
             }
             
-            <div id="id_documents_list" class="table-overflow">
-                <table class="wa-table list trHoverGray">
+            <div id="id_documents_list" className="table-overflow">
+                <table className="wa-table list trHoverGray">
                     <thead>
                         <tr>
                             {HeaderItems.map((HeaderItem) => (
-                                <th scope="col" style={{ cursor: 'pointer', textAlign: 'center' }}>
+                                <th key={generateUniqueKey()} scope="col" style={{ cursor: 'pointer', textAlign: 'center' }}>
                                     {HeaderItem}
                                 </th>
                             ))}
@@ -32,9 +37,9 @@ function TableList(props) {
                     </thead>
                     <tbody>
                         {RowItems.map((RowItem) => (
-                            <tr style={{ textAlign: 'center' }}>
+                            <tr key={generateUniqueKey()} style={{ textAlign: 'center' }}>
                             {RowItem.map((RowField) => (
-                                <td>
+                                <td key={generateUniqueKey()}>
                                     {RowField}
                                 </td>
                             ))}

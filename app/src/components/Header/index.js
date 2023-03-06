@@ -1,31 +1,46 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { AuthContext } from '../../contexts/AuthContext';
 
 function Header(props) {
+	const navigate = useNavigate();
+    const { setAuthToken, setUserData, setOperationToken, setModule, authToken } = useContext(AuthContext);
+
+	function handleLogout() {
+		localStorage.removeItem('authToken');
+		localStorage.removeItem('operationToken');
+		localStorage.removeItem('userData');
+		localStorage.removeItem('module');
+		setAuthToken(null);
+		setUserData(null);
+		setOperationToken(null);
+		setModule(null);
+		navigate('/login');
+	  }
+	  
   return (
-    <nav class="navbar" id="navbar">
-				<a href="#" class="nav-logo">
+    <nav className="navbar" id="navbar">
+				<a href="#" className="nav-logo">
 				<img src="https://my.wastreet.app/public/assets/img/logos/logo-wastreet.svg" alt="Logo de Wastreet" />
 				</a>
-				<div class="nav-content">
-					<div class="nav-actions ms-auto">
-						<select id="id_shift_structure" class="me-lg-4">
-							<option value="1">GPSO - Collectes</option><option value="2">GPSO - PU</option><option value="3">Ville de Paris</option><option value="4" selected="">DEMO</option><option value="6">SNA</option><option value="8">SIRMOTOM</option><option value="12">NOISY Le Grand</option>						</select>
-						<div class="dropdown">
-							<div class="dropdown">
-								<button class="btn-avatar" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+				<div className="nav-content">
+					<div className="nav-actions ms-auto">
+						<div className="dropdown">
+							<div className="dropdown">
+								<button className="btn-avatar" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 									<FontAwesomeIcon icon={faUser} />
 								</button>
-								<ul class="dropdown-menu dropdown-menu-end">
-									<li class="px-2">
-										<small class="text-muted">
+								<ul className="dropdown-menu dropdown-menu-end">
+									<li className="px-2">
+										<small className="text-muted">
 											Connecté en tant que Justin Chazalette										</small>
 									</li>
-									<li class="dropdown-divider"></li>
-									<li>
-										<button type="button" class="dropdown-item">
-										<FontAwesomeIcon icon={faSignOutAlt} /> Déconnexion
+									<li className="dropdown-divider"></li>
+									<li onClick={handleLogout}>
+										<button type="button" className="dropdown-item">
+										<FontAwesomeIcon icon={faSignOutAlt}/> Déconnexion
 										</button>
 									</li>
 								</ul>
@@ -33,7 +48,7 @@ function Header(props) {
 						</div>
 					</div>
 				</div>
-				<button type="button" class="nav-menu-btn fa-solid fa-bars" id="menuBtn" aria-label="Menu"></button>
+				<button type="button" className="nav-menu-btn fa-solid fa-bars" id="menuBtn" aria-label="Menu"></button>
 		</nav>
   );
 }

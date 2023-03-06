@@ -5,15 +5,24 @@ import $ from 'jquery';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import OPFDRouter from './modules/Admin/OPFD/Router';
-
+import OPFDRouter from './modules/OPFD/Router';
+import MFDRouter from './modules/MFD/Router';
+import DefaultRouter from './modules/Default/Router';
+import React, { useContext } from 'react';
+import { AuthContext } from './contexts/AuthContext';
 
 function App() {
-  var type = "OPFD";
-  switch (type) {
+  const { module } = useContext(AuthContext);
+
+  switch (module) {
     case "OPFD":
+      return <MFDRouter />;
+    case "MFD": 
       return <OPFDRouter />;
+    default: 
+      return <DefaultRouter />;
   }
+
 }
 
 export default App;

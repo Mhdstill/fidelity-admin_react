@@ -1,9 +1,12 @@
-import React from 'react';
-import ListPage from '../../Default/ListPage';
-import EllipsisDropdown from '../../../../components/EllipsisDropdown';
+import React, { useContext } from 'react';
+import EllipsisDropdown from '../../../components/EllipsisDropdown';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import withAdminAuth from '../../../hoc/withAdminAuth';
+import { AuthContext } from '../../../contexts/AuthContext';
+import AdminListPage from '../../Default/AdminListPage';
 
-function ProductListPage(props) {
+function AdminProductListPage(props) {
+  const { authToken } = useContext(AuthContext);
 
   const TableHeaderItems = [
     "Column 1",
@@ -26,7 +29,7 @@ function ProductListPage(props) {
   const TableRowItems = [
     [
       "Value 1",
-      "Value 2",
+      authToken,
       <EllipsisDropdown buttonItems={TableRowActions} />
     ],
     [
@@ -37,7 +40,7 @@ function ProductListPage(props) {
   ];
 
   return ( 
-    <ListPage 
+    <AdminListPage 
         entityName="Produits" 
         buttonLabel="Nouveau" 
         buttonRedirectTo="/admin/product/new" 
@@ -48,4 +51,4 @@ function ProductListPage(props) {
   
 }
 
-export default ProductListPage;
+export default withAdminAuth(AdminProductListPage);
