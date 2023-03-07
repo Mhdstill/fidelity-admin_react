@@ -32,7 +32,27 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.table-overflow {
+  overflow-x: auto;
+}
+
+.wa-table th,
+.wa-table td {
+  white-space: nowrap;
+}
+
+body {
+  background: rgb(246, 246, 246) !important;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

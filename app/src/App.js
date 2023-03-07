@@ -16,9 +16,9 @@ function App() {
 
   switch (module) {
     case "OPFD":
-      return <MFDRouter />;
-    case "MFD": 
       return <OPFDRouter />;
+    case "MFD": 
+      return <MFDRouter />;
     default: 
       return <DefaultRouter />;
   }

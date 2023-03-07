@@ -17,7 +17,7 @@ function Header(props) {
 		setUserData(null);
 		setOperationToken(null);
 		setModule(null);
-		navigate('/login');
+		navigate('/admin/login');
 	  }
 	  
   return (

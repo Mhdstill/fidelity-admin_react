@@ -2246,14 +2246,16 @@ ul.tree {
     display: none; }
   .title-header {
     flex-direction: column;
-    gap: 10px; }
+    gap: 10px; 
+    align-items: initial;
+  }
     .title-header h1 {
       width: 100%;
       text-align: left; }
     .title-header .dropdown,
     .title-header .btn-primary,
     .title-header .btn-secondary {
-      width: 100%; }
+      float: right; }
   nav.navbar .nav-content {
     display: none; }
   .calendar-wrapper .calendar-dates li {
