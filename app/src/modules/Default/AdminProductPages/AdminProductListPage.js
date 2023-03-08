@@ -4,6 +4,7 @@ import { AuthContext } from '../../../contexts/AuthContext';
 import AdminListPage from '../../Default/AdminListPage';
 import DefaultListActions from '../../../components/DefaultListActions';
 import showNotification from '../../../components/Notification';
+import { API_URL, callAPI } from '../../../utils/api';
 
 function AdminProductListPage(props) {
   const { operationToken, authToken } = useContext(AuthContext);
@@ -31,6 +32,7 @@ function AdminProductListPage(props) {
     "ID",
     "Image",
     "Nom",
+    "Prix",
     "Description",
     "Catégories",
     "Actions"
@@ -40,8 +42,9 @@ function AdminProductListPage(props) {
     '',
     '',
     product.name,
+    product.price,
     product.description,
-    '',
+    product.categories.map((category) => (<>{category.name} <br/></>)),
     <DefaultListActions editRedirectPath={`/admin/product/${product.id}`} onDelete={() => handleDelete(product.id)}  />
   ]));
 
@@ -50,14 +53,11 @@ function AdminProductListPage(props) {
   }
 
   async function handleDelete(id) {
-    await fetch(`https://mhd-it.fr/api/${operationToken}/products/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${authToken}`
-      }
-    });
-    setProducts(products.filter(product => product.id !== id));
-    showNotification("Le produit a été supprimé avec succès.")
+    const response = await callAPI(`/api/${operationToken}/products/${id}`, 'DELETE');
+    if (response) {
+      setProducts(products.filter(product => product.id !== id));
+      showNotification("Le produit a été supprimé avec succès.")
+    }
   }
 
   return (

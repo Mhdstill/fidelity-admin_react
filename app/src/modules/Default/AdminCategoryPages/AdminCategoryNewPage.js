@@ -8,7 +8,7 @@ import '@ckeditor/ckeditor5-build-classic/build/translations/en-gb';
 import { AuthContext } from '../../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { API_URL } from '../../../utils/api';
+import { API_URL, callAPI } from '../../../utils/api';
 import showNotification from '../../../components/Notification';
 
 function AdminCategoryNewPage(props) {
@@ -36,21 +36,15 @@ function AdminCategoryNewPage(props) {
         event.preventDefault();
 
         try {
-            const response = await fetch(API_URL + '/api/categories', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/ld+json',
-                    'Authorization': `Bearer ${authToken}`
-                },
-                body: JSON.stringify({
-                    name,
-                    operation: `/api/operations/${operationToken}`
-                })
-            });
-
-            const data = await response.json();
-            navigate("/admin/categories")
-            showNotification("La catégorie de produit a été créé avec succès.")
+            const productData = {
+                name,
+                operation: `/api/operations/${operationToken}`
+            };
+            const response = await callAPI('/api/categories', 'POST', productData);
+            if (response) {
+                navigate("/admin/categories")
+                showNotification("La catégorie de produit a été créé avec succès.")
+            }
         } catch (error) {
             console.error(error);
         }

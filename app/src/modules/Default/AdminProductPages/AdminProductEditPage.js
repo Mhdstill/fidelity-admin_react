@@ -7,9 +7,10 @@ import '@ckeditor/ckeditor5-build-classic/build/translations/fr';
 import '@ckeditor/ckeditor5-build-classic/build/translations/en-gb';
 import { AuthContext } from '../../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { API_URL } from '../../../utils/api';
+import { API_URL, callAPI } from '../../../utils/api';
 import showNotification from '../../../components/Notification';
 import { useParams } from 'react-router-dom';
+import Select2 from '../../../components/Select2';
 
 function AdminProductEditPage(props) {
     const { id } = useParams();
@@ -19,6 +20,8 @@ function AdminProductEditPage(props) {
     const [price, setPrice] = useState(0);
     const navigate = useNavigate();
     const formID = "new_product";
+    const [selectedCategories, setSelectedCategories] = useState([]);
+    const [categories, setCategories] = useState([]);
 
     const titleForm = "Modification du produit";
     const fields = [
@@ -65,6 +68,14 @@ function AdminProductEditPage(props) {
                         }}
                     />
                 </Form.Group>
+        }, {
+            id: formID + "_4",
+            label: "Catégories",
+            input:
+                <Select2
+                    onChange={(selected) => setSelectedCategories(selected)}
+                    options={categories}
+                />
         }
     ];
 
@@ -77,22 +88,18 @@ function AdminProductEditPage(props) {
         event.preventDefault();
 
         try {
-            const response = await fetch(API_URL + `/api/${operationToken}/products/` + id, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/ld+json',
-                    'Authorization': `Bearer ${authToken}`
-                },
-                body: JSON.stringify({
-                    name,
-                    description,
-                    price
-                })
-            });
-
-            const data = await response.json();
-            navigate("/admin/products")
-            showNotification("Le produit a été mis à jour avec succès.")
+            const productData = {
+                name,
+                description,
+                price,
+                operation: `/api/operations/${operationToken}`,
+                categories: selectedCategories.map((category) => `/api/${operationToken}/categories/${category.value}`)
+            };
+            const response = await callAPI(`/api/${operationToken}/products/${id}`, 'PUT', productData);
+            if (response) {
+                navigate("/admin/products")
+                showNotification("Le produit a été mis à jour avec succès.")
+            }
         } catch (error) {
             console.error(error);
         }
@@ -101,20 +108,35 @@ function AdminProductEditPage(props) {
     useEffect(() => {
         async function fetchProduct() {
             try {
-                const response = await fetch(API_URL + `/api/${operationToken}/products/` + id, {
-                    headers: {
-                        'Authorization': `Bearer ${authToken}`
-                    }
-                });
+                const response = await fetch(API_URL + `/api/${operationToken}/products/` + id);
                 const data = await response.json();
                 setName(data.name);
                 setDescription(data.description);
                 setPrice(data.price);
+                setSelectedCategories(data.categories);
+                const sCategories = data.categories;
+
+                async function fetchCategories() {
+                    try {
+                      console.log(selectedCategories);
+                      const response = await fetch(`${API_URL}/api/${operationToken}/categories`);
+                      const responseData = await response.json();
+                      const categoriesData = responseData['hydra:member'];
+                      const categoriesOptions = categoriesData.map((category) => ({
+                          selected:  sCategories.some((c) => c.id === category.id),
+                          value: category.id,
+                          label: category.name,
+                        }));
+                      setCategories(categoriesOptions);
+                    } catch (error) {
+                      console.error(error);
+                    }
+                  }
+                  fetchCategories();
             } catch (error) {
                 console.error(error);
             }
         }
-
         fetchProduct();
     }, [id, authToken]);
 

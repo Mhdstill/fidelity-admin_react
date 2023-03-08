@@ -5,7 +5,7 @@ import { AuthContext } from '../../../contexts/AuthContext';
 const AdminLoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { authToken, setAuthToken, setOperationToken, setUserData, setModule } = useContext(AuthContext);
+  const { authToken, setAuthToken, setRefreshAuthToken, setOperationToken, setUserData, setModule } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -20,15 +20,17 @@ const AdminLoginPage = () => {
         body: JSON.stringify({ email, password })
       });
       const data = await response.json();
-      const { token, role, email: userEmail, module, operation } = data;
+      const { token, role, email: userEmail, module, operation, refresh_token } = data;
       localStorage.setItem('authToken', token);
       localStorage.setItem('operationToken', operation);
       localStorage.setItem('userData', JSON.stringify({ email: userEmail, role: role }));
       localStorage.setItem('module', module);
+      localStorage.setItem('refreshAuthToken', refresh_token);
       setAuthToken(token);
       setUserData(JSON.stringify({ email: userEmail, role: role }));
       setModule(module);
       setOperationToken(operation);
+      setRefreshAuthToken(refresh_token);
     } catch (error) {
       console.error(error);
     }

@@ -7,9 +7,9 @@ import '@ckeditor/ckeditor5-build-classic/build/translations/fr';
 import '@ckeditor/ckeditor5-build-classic/build/translations/en-gb';
 import { AuthContext } from '../../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { API_URL } from '../../../utils/api';
 import showNotification from '../../../components/Notification';
 import { useParams } from 'react-router-dom';
+import { API_URL, callAPI } from '../../../utils/api';
 
 function AdminCategoryEditPage(props) {
     const { id } = useParams();
@@ -38,20 +38,11 @@ function AdminCategoryEditPage(props) {
         event.preventDefault();
 
         try {
-            const response = await fetch(API_URL + `/api/${operationToken}/categories/` + id, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/ld+json',
-                    'Authorization': `Bearer ${authToken}`
-                },
-                body: JSON.stringify({
-                    name
-                })
-            });
-
-            const data = await response.json();
-            navigate("/admin/categories")
-            showNotification("La catégorie a été mise à jour avec succès.")
+            const response = await callAPI(`/api/${operationToken}/categories/${id}`, 'PUT', {name});
+            if (response) {
+                navigate("/admin/categories")
+                showNotification("La catégorie a été mise à jour avec succès.")
+            }
         } catch (error) {
             console.error(error);
         }

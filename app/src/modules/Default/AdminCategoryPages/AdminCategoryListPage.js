@@ -4,6 +4,7 @@ import { AuthContext } from '../../../contexts/AuthContext';
 import AdminListPage from '../../Default/AdminListPage';
 import DefaultListActions from '../../../components/DefaultListActions';
 import showNotification from '../../../components/Notification';
+import { API_URL, callAPI } from '../../../utils/api';
 
 function AdminCategoryListPage(props) {
   const { operationToken, authToken } = useContext(AuthContext);
@@ -44,14 +45,11 @@ function AdminCategoryListPage(props) {
   }
 
   async function handleDelete(id) {
-    await fetch(`https://mhd-it.fr/api/${operationToken}/categories/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${authToken}`
-      }
-    });
-    setCategories(categories.filter(category => category.id !== id));
-    showNotification("La catégorie a été supprimé avec succès.")
+    const response = await callAPI(`/api/${operationToken}/categories/${id}`, 'DELETE');
+    if (response) {
+      setCategories(categories.filter(category => category.id !== id));
+      showNotification("La catégorie a été supprimé avec succès.")
+    }
   }
 
   return (

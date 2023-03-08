@@ -8,7 +8,7 @@ import '@ckeditor/ckeditor5-build-classic/build/translations/en-gb';
 import { AuthContext } from '../../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { API_URL } from '../../../utils/api';
+import { API_URL, callAPI } from '../../../utils/api';
 import showNotification from '../../../components/Notification';
 import Select2 from '../../../components/Select2';
 
@@ -18,6 +18,7 @@ function AdminProductNewPage(props) {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState(0);
+    const [selectedCategories, setSelectedCategories] = useState([]);
 
     const [categories, setCategories] = useState([]);
     useEffect(() => {
@@ -89,6 +90,7 @@ function AdminProductNewPage(props) {
             label: "Catégories",
             input:
                 <Select2
+                    onChange={(selected) => setSelectedCategories(selected)}
                     options={categories}
                 />
         }
@@ -103,23 +105,18 @@ function AdminProductNewPage(props) {
         event.preventDefault();
 
         try {
-            const response = await fetch(API_URL + '/api/products', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/ld+json',
-                    'Authorization': `Bearer ${authToken}`
-                },
-                body: JSON.stringify({
-                    name,
-                    description,
-                    price,
-                    operation: `/api/operations/${operationToken}`
-                })
-            });
-
-            const data = await response.json();
-            navigate("/admin/products")
-            showNotification("Le produit a été créé avec succès.")
+            const productData = {
+                name,
+                description,
+                price,
+                operation: `/api/operations/${operationToken}`,
+                categories: selectedCategories.map((category) => `/api/${operationToken}/categories/${category.value}`)
+            };
+            const response = await callAPI('/api/products', 'POST', productData);
+            if (response) {
+                navigate("/admin/products")
+                showNotification("Le produit a été créé avec succès.")
+            }
         } catch (error) {
             console.error(error);
         }

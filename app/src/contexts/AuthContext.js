@@ -9,10 +9,13 @@ export const AuthContext = createContext({
   setOperationToken: () => {},
   module: null,
   setModule: () => {},
+  refreshToken: null, 
+  setRefreshToken: () => {}
 });
 
 const AuthContextProvider = ({ children }) => {
   const [authToken, setAuthToken] = useState(null);
+  const [refreshAuthToken, setRefreshAuthToken] = useState(null);
   const [operationToken, setOperationToken] = useState(null);
   const [userData, setUserData] = useState(null);
   const [module, setModule] = useState(null);
@@ -22,6 +25,7 @@ const AuthContextProvider = ({ children }) => {
     const storedOperationToken = localStorage.getItem("operationToken");
     const storedUserData = localStorage.getItem("userData");
     const storedModule = localStorage.getItem("module");
+    const storedRefreshAuthToken = localStorage.getItem("refreshAuthToken");
 
     if (storedAuthToken && authToken !== storedAuthToken) {
       setAuthToken(storedAuthToken);
@@ -37,6 +41,10 @@ const AuthContextProvider = ({ children }) => {
 
     if (storedModule && module !== storedModule) {
       setModule(storedModule);
+    }
+
+    if (storedRefreshAuthToken && refreshAuthToken !== storedRefreshAuthToken) {
+      setRefreshAuthToken(storedRefreshAuthToken);
     }
   }, [authToken, operationToken, userData, module]);
 
