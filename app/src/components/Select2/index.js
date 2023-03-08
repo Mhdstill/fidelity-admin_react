@@ -1,26 +1,25 @@
-import React, { useState, useContext } from 'react';
-import Select2 from 'react-select2';
+/**
+ * cf: https://www.npmjs.com/package/react-multi-select-component
+ */
 
-function Select2Component(props) {
-  const { options } = props;
-  const [selectedOptions, setSelectedOptions] = useState([]);
+import React, { useState } from "react";
+import { MultiSelect } from "react-multi-select-component";
+
+const Select2 = (props) => {
+    const { options, hasSelectAll = false } = props;
+    const [selected, setSelected] = useState([]);
   
-  const handleChange = (selectedOptions) => {
-    setSelectedOptions(selectedOptions);
+    return (
+      <>
+        <MultiSelect
+          options={options}
+          value={selected}
+          onChange={setSelected}
+          labelledBy="Select"
+          hasSelectAll={hasSelectAll}
+        />
+      </>
+    );
   };
-
-  return (
-    <Select2
-      data={options}
-      options={{
-        placeholder: 'Sélectionnez une option',
-        allowClear: true
-      }}
-      onChange={(event) => {
-        handleChange(event.target.value);
-      }}
-    />
-  );
-}
-
-export default Select2Component;
+  
+  export default Select2;

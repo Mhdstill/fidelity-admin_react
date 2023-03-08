@@ -14,11 +14,8 @@ import showNotification from '../../../components/Notification';
 function AdminCategoryNewPage(props) {
     const { authToken, operationToken } = useContext(AuthContext);
     const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [price, setPrice] = useState(0);
     const navigate = useNavigate();
     const formID = "new_category";
-
     const titleForm = "Création d'une catégorie de produit";
     const fields = [
         {
@@ -27,16 +24,13 @@ function AdminCategoryNewPage(props) {
             input:
                 <Form.Control
                     type="text"
-                    placeholder="Entrez votre nom"
+                    placeholder="Entrez le nom de la catégorie"
+                    value={name}
+                    onChange={(event) => setName(event.target.value)}
                     onBlur={(event) => setName(event.target.value.trim())}
                 />
         }
     ];
-
-    function handleCKEditorChange(event, editor) {
-        const data = editor.getData();
-        setDescription(data);
-    }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -50,8 +44,6 @@ function AdminCategoryNewPage(props) {
                 },
                 body: JSON.stringify({
                     name,
-                    description,
-                    price,
                     operation: `/api/operations/${operationToken}`
                 })
             });

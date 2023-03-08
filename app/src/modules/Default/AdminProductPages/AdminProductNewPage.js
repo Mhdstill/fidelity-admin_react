@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import AdminFormPage from '../../Default/AdminFormPage';
 import { Form } from 'react-bootstrap';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -10,21 +10,37 @@ import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { API_URL } from '../../../utils/api';
 import showNotification from '../../../components/Notification';
-import Select2Component from '../../../components/Select2';
+import Select2 from '../../../components/Select2';
 
 function AdminProductNewPage(props) {
+    const navigate = useNavigate();
     const { authToken, operationToken } = useContext(AuthContext);
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState(0);
-    const navigate = useNavigate();
+
+    const [categories, setCategories] = useState([]);
+    useEffect(() => {
+        async function fetchCategories() {
+          try {
+            const response = await fetch(`${API_URL}/api/${operationToken}/categories`);
+            const responseData = await response.json();
+            const categoriesData = responseData['hydra:member'];
+            const categoriesOptions = categoriesData.map((category) => ({
+                value: category.id,
+                label: category.name,
+              }));
+            setCategories(categoriesOptions);
+          } catch (error) {
+            console.error(error);
+          }
+        }
+    
+        fetchCategories();
+      }, [operationToken]);
+
+      
     const formID = "new_product";
-
-    function logChange(val) {
-        console.log("Selected: " + val);
-    }
-
-
     const titleForm = "Création d'un produit";
     const fields = [
         {
@@ -73,15 +89,7 @@ function AdminProductNewPage(props) {
             label: "Catégories",
             input:
                 <Select2
-                    options={[
-                        { value: 'option1', label: 'Option 1' },
-                        { value: 'option2', label: 'Option 2' },
-                        { value: 'option3', label: 'Option 3' },
-                        { value: 'option4', label: 'Option 4' },
-                        { value: 'option5', label: 'Option 5' },
-                      ]}
-                    multiple={true}
-                    placeholder="Select an option"
+                    options={categories}
                 />
         }
     ];
