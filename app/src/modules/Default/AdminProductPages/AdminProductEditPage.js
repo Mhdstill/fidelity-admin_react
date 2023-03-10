@@ -11,6 +11,7 @@ import { API_URL, callAPI } from '../../../utils/api';
 import showNotification from '../../../components/Notification';
 import { useParams } from 'react-router-dom';
 import Select2 from '../../../components/Select2';
+import InputFloat from '../../../components/InputFloat';
 
 function AdminProductEditPage(props) {
     const { id } = useParams();
@@ -41,13 +42,7 @@ function AdminProductEditPage(props) {
             id: formID + "_2",
             label: 'Prix',
             input:
-                <Form.Control
-                    type="number"
-                    step="0.01"
-                    placeholder="Entrez votre prix de boutique"
-                    value={price}
-                    onChange={(event) => setPrice(parseFloat(event.target.value))}
-                />
+                <InputFloat field={price} setField={setPrice} placeholder={"Entrez votre prix de boutique"} />
         },
         {
             id: formID + "_3",
@@ -56,7 +51,7 @@ function AdminProductEditPage(props) {
                 <Form.Group controlId="description">
                     <CKEditor
                         editor={ClassicEditor}
-                        data="<p>Ecrivez votre texte ici</p>"
+                        data={description}
                         onChange={handleCKEditorChange}
                         value={description}
                         config={{
@@ -113,8 +108,6 @@ function AdminProductEditPage(props) {
                 setName(data.name);
                 setDescription(data.description);
                 setPrice(data.price);
-                setSelectedCategories(data.categories);
-                const sCategories = data.categories;
 
                 async function fetchCategories() {
                     try {
@@ -123,11 +116,13 @@ function AdminProductEditPage(props) {
                       const responseData = await response.json();
                       const categoriesData = responseData['hydra:member'];
                       const categoriesOptions = categoriesData.map((category) => ({
-                          selected:  sCategories.some((c) => c.id === category.id),
+                          selected:  data.categories.some((c) => c.id === category.id),
                           value: category.id,
                           label: category.name,
                         }));
                       setCategories(categoriesOptions);
+                      const selectedCategoriesOptions = categoriesOptions.filter((category) => category.selected);
+                      setSelectedCategories(selectedCategoriesOptions);
                     } catch (error) {
                       console.error(error);
                     }

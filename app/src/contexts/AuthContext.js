@@ -46,7 +46,32 @@ const AuthContextProvider = ({ children }) => {
     if (storedRefreshAuthToken && refreshAuthToken !== storedRefreshAuthToken) {
       setRefreshAuthToken(storedRefreshAuthToken);
     }
+
+    checkTokenValidity();
   }, [authToken, operationToken, userData, module]);
+
+  const checkTokenValidity = async () => {
+    if (authToken) {
+      try {
+        const response = await fetch("/api/token/check", {method: "GET"});
+        if (!response.ok) {
+          throw new Error("Token is expired or invalid");
+        }
+      } catch (error) {
+        console.error("Token is expired or invalid");
+        setOperationToken(null);
+        setAuthToken(null);
+        setUserData(null);
+        setModule(null);
+        setRefreshAuthToken(null);
+        localStorage.setItem('authToken', null);
+        localStorage.setItem('operationToken', null);
+        localStorage.setItem('userData', null);
+        localStorage.setItem('module', null);
+        localStorage.setItem('refreshAuthToken', null);
+      }
+    }
+  };
 
   return (
     <AuthContext.Provider

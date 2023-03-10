@@ -22,7 +22,7 @@ function TableList(props) {
             <tr>
               {HeaderItems.map((HeaderItem) => (
                 <th
-                  key={HeaderItem}
+                  key={uuidv4()}
                   scope="col"
                   style={{ cursor: 'pointer', textAlign: 'center' }}
                 >

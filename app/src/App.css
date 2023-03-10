@@ -56,3 +56,8 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+.img-admin_table_list {
+  height: 200px;
+  width: auto;
+}

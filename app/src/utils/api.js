@@ -30,18 +30,33 @@ const callAPI = async (endpoint, method, body = {}) => {
     const authToken = localStorage.getItem("authToken");
     const refreshToken = localStorage.getItem("refreshAuthToken");
     let headers = {
-        "Content-Type": "application/json",
         "Authorization": `Bearer ${authToken}`,
     };
     let response;
 
-    try {
-        response = await fetch(`${API_URL}${endpoint}`, {
+    let params;
+    if(body instanceof FormData) {
+        params = {
             method,
             headers,
-            body: JSON.stringify(body)
-        });
+            body,
+        };
+    } else if(method === 'GET'){
+        params = {
+            method,
+            headers,
+        }
+    } else {
+        headers["Content-Type"] = "application/json";
+        params = {
+            method,
+            headers,
+            body: JSON.stringify(body),
+        }
+    }
 
+    try {
+        response = await fetch(`${API_URL}${endpoint}`, params);
         if (!response.ok) {
             throw new Error("Response not OK");
         }

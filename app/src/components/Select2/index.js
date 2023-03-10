@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react';
 import { MultiSelect } from "react-multi-select-component";
 
 const Select2 = (props) => {
-  const { options, hasSelectAll = false, onChange } = props;
+  const { options, hasSelectAll = true, onChange } = props;
   const [selected, setSelected] = useState([]);
 
   const handleChange = (selected) => {
@@ -26,6 +26,13 @@ const Select2 = (props) => {
     });
     setSelected(selectedOptions);
   }, [options]);
+
+  const overrideStrings = {
+    selectSomeItems: 'Sélectionner des options',
+    allItemsAreSelected: '',
+    selectAll: 'Tout sélectionner',
+    search: 'Rechercher',
+  };
   
   return (
     <>
@@ -35,6 +42,7 @@ const Select2 = (props) => {
         onChange={handleChange}
         labelledBy="Select"
         hasSelectAll={hasSelectAll}
+        overrideStrings={overrideStrings}
       />
     </>
   );

@@ -15,6 +15,11 @@ import AdminCategoryListPage from '../../Default/AdminCategoryPages/AdminCategor
 import AdminCategoryNewPage from '../../Default/AdminCategoryPages/AdminCategoryNewPage';
 import AdminCategoryEditPage from '../../Default/AdminCategoryPages/AdminCategoryEditPage';
 import AdminUserListPage from '../../Default/AdminUserListPage';
+import AdminBonusListPage from '../AdminBonusPages/AdminBonusListPage';
+import AdminBonusNewPage from '../AdminBonusPages/AdminBonusNewPage';
+import AdminBonusEditPage from '../AdminBonusPages/AdminBonusEditPage';
+import AdminOrderListPage from '../AdminOrderListPage';
+import AdminSettingPage from '../../Default/AdminSettingPage';
 
 const menuItems = [
   {
@@ -39,7 +44,7 @@ const menuItems = [
   {
       id: "item_2",
       itemName: "Bonus",
-      redirectPath: '/admin/program/bonus',
+      redirectPath: '/admin/bonus',
       faIcon: faGift,
   },
   {
@@ -96,7 +101,27 @@ const router = createBrowserRouter([
       {
         path: '/admin/users/',
         element: <AdminUserListPage />,
-      }
+      },
+      {
+        path: '/admin/bonus',
+        element: <AdminBonusListPage />,
+      },
+      {
+        path: '/admin/bonus/new',
+        element: <AdminBonusNewPage />,
+      },
+      {
+        path: '/admin/bonus/:id',
+        element: <AdminBonusEditPage />,
+      },
+      {
+        path: '/admin/orders/',
+        element: <AdminOrderListPage />,
+      },
+      {
+        path: '/admin/settings/',
+        element: <AdminSettingPage />,
+      },
     ],
   },
   {

@@ -1,0 +1,5 @@
+.admin-switch input[type="checkbox"] {
+    transform: scale(1.4);
+    display: block;
+    padding: 10px !important;
+  }

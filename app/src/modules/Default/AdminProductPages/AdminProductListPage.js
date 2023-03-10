@@ -5,6 +5,7 @@ import AdminListPage from '../../Default/AdminListPage';
 import DefaultListActions from '../../../components/DefaultListActions';
 import showNotification from '../../../components/Notification';
 import { API_URL, callAPI } from '../../../utils/api';
+import { v4 as uuidv4 } from 'uuid';
 
 function AdminProductListPage(props) {
   const { operationToken, authToken } = useContext(AuthContext);
@@ -29,7 +30,6 @@ function AdminProductListPage(props) {
   }, [currentPage, operationToken]);
 
   const TableHeaderItems = [
-    "ID",
     "Image",
     "Nom",
     "Prix",
@@ -38,14 +38,15 @@ function AdminProductListPage(props) {
     "Actions"
   ];
 
+  console.log(products);
+
   const TableRowItems = products.map(product => ([
-    '',
-    '',
+    (product.images && product.images.length > 0)? <img src={API_URL + "/assets/img/" + product.images[0].filePath} className={"img-admin_table_list"} /> : '',
     product.name,
-    product.price,
-    product.description,
-    product.categories.map((category) => (<>{category.name} <br/></>)),
-    <DefaultListActions editRedirectPath={`/admin/product/${product.id}`} onDelete={() => handleDelete(product.id)}  />
+    product.price + "€",
+    <div dangerouslySetInnerHTML={{__html: product.description}}></div>,
+    product.categories.map((category) => (<div key={uuidv4()}>{category.name} <br /></div>)),
+    <DefaultListActions editRedirectPath={`/admin/product/${product.id}`} onDelete={() => handleDelete(product.id)} />
   ]));
 
   function handlePageChange(newPage) {
