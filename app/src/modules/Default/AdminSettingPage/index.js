@@ -4,17 +4,16 @@ import { Form } from 'react-bootstrap';
 import '@ckeditor/ckeditor5-build-classic/build/translations/fr';
 import '@ckeditor/ckeditor5-build-classic/build/translations/en-gb';
 import { AuthContext } from '../../../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
 import { API_URL, callAPI } from '../../../utils/api';
 import showNotification from '../../../components/Notification';
 import { useParams } from 'react-router-dom';
 import InputFloat from '../../../components/InputFloat';
+import InputURL from '../../../components/InputURL';
 
 function AdminSettingPage(props) {
     const { id } = useParams();
     const { authToken, operationToken } = useContext(AuthContext);
     const [coefficient, setCoefficient] = useState(1);
-    const navigate = useNavigate();
     const formID = "edit_operation";
 
     const titleForm = "Paramètres";
@@ -25,6 +24,31 @@ function AdminSettingPage(props) {
             input:
                 <InputFloat field={coefficient} setField={setCoefficient} placeholder={"Entrez votre coefficient (point/euro)"} />
         },
+        {
+            id: formID + "_2",
+            label: 'Twitter',
+            input:
+                <InputURL placeholder={"Entrez votre Twitter"} domain={"twitter.com"}  />
+        },
+        {
+            id: formID + "_3",
+            label: 'Instagram',
+            input:
+                <InputURL placeholder={"Entrez votre Instagram"} domain={"instagram.com"}  />
+        },
+        {
+            id: formID + "_4",
+            label: 'Facebook',
+            input:
+                <InputURL placeholder={"Entrez votre Facebook"} domain={"facebook.com"}  />
+        },
+        {
+            id: formID + "_5",
+            label: 'TikTok',
+            input:
+                <InputURL placeholder={"Entrez votre TikTok"} domain={"tiktok.com"}  />
+        },
+        
     ];
 
     const handleSubmit = async (event) => {
