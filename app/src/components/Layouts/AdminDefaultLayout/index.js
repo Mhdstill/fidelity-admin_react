@@ -1,11 +1,12 @@
 import React from 'react';
 import Header from '../../Header';
 import Sidebar from '../../Sidebar';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 function AdminDefaultLayout(props) {
 
   const {menuItems} = props;
+  const location = useLocation();
 
   return (
     <div>
@@ -14,7 +15,10 @@ function AdminDefaultLayout(props) {
         className='content-wrapper'
         style={{ background: '#f6f6f6', height: 'auto', minHeight: 'auto' }}
       >
-        <Sidebar menuItems={menuItems} />
+        <Sidebar menuItems={menuItems.map((menuItem) => ({
+          ...menuItem,
+          isActive: menuItem.redirectPath === location.pathname,
+        }))} />
         <Outlet />
       </div>
     </div>
