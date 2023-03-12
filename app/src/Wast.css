@@ -872,7 +872,6 @@ input[type="checkbox"] {
   flex-direction: column;
   gap: 5px; }
   .dropzone-files-list .file-block {
-    width: 100%;
     padding: 5px 10px;
     border-radius: 6px;
     background-color: rgba(0, 133, 134, 0.14);
@@ -881,6 +880,7 @@ input[type="checkbox"] {
     justify-content: space-between;
     flex-direction: row-reverse; }
   .dropzone-files-list .file-delete {
+    cursor: pointer;
     font-size: 16px;
     font-weight: 600;
     transform: rotate(45deg);

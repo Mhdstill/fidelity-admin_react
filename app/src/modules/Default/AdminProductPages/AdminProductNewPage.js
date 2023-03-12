@@ -12,6 +12,8 @@ import { API_URL, callAPI } from '../../../utils/api';
 import showNotification from '../../../components/Notification';
 import Select2 from '../../../components/Select2';
 import InputFloat from '../../../components/InputFloat';
+import { uploadFile } from '../../../utils/dataManager';
+import InputFileMultiple from '../../../components/InputFileMultiple';
 
 function AdminProductNewPage(props) {
     const navigate = useNavigate();
@@ -20,8 +22,8 @@ function AdminProductNewPage(props) {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState(0);
     const [selectedCategories, setSelectedCategories] = useState([]);
-    const [file, setFile] = useState(null);
     const [categories, setCategories] = useState([]);
+    const [files, setFiles] = useState(null);
 
     useEffect(() => {
         async function fetchCategories() {
@@ -91,14 +93,9 @@ function AdminProductNewPage(props) {
                 />
         }, {
             id: formID + "_5",
-            label: "Catégories",
+            label: "Image",
             input:
-                <Form.Group controlId="formFile">
-                    <Form.Control
-                        type="file"
-                        onChange={(event) => setFile(event.target.files[0])}
-                    />
-                </Form.Group>
+                <InputFileMultiple onChange={setFiles} />
         }
     ];
 
@@ -112,26 +109,24 @@ function AdminProductNewPage(props) {
 
         try {
 
-            // Upload file to server
-            let mediaObject = [];
-            if (file) {
-                const formData = new FormData();
-                formData.append('file', file, file.name);
-                formData.set('Content-Type', file.type);
-                let fileResponse = await callAPI('/api/media_objects', 'POST', formData);
-                const fileResponseData = await fileResponse.json();
-                let mediaObjectIRI = fileResponseData["@id"];
-                mediaObject = [mediaObjectIRI];
-            }
-
             const productData = {
                 name,
                 description,
                 price,
                 operation: `/api/operations/${operationToken}`,
                 categories: selectedCategories.map((category) => `/api/${operationToken}/categories/${category.value}`),
-                images: mediaObject
             };
+
+            let mediaObjects = [];
+            if (files && files.length > 0) {
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    const mediaObjectIRI = await uploadFile(file);
+                    mediaObjects.push(mediaObjectIRI);
+                }
+                productData["images"] = mediaObjects;
+            }
+
             const response = await callAPI('/api/products', 'POST', productData);
             if (response) {
                 navigate("/admin/products")

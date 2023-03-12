@@ -6,12 +6,14 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import '@ckeditor/ckeditor5-build-classic/build/translations/fr';
 import '@ckeditor/ckeditor5-build-classic/build/translations/en-gb';
 import { AuthContext } from '../../../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { createPath, useNavigate } from 'react-router-dom';
 import { API_URL, callAPI } from '../../../utils/api';
 import showNotification from '../../../components/Notification';
 import { useParams } from 'react-router-dom';
 import Select2 from '../../../components/Select2';
 import InputFloat from '../../../components/InputFloat';
+import InputFileMultiple from '../../../components/InputFileMultiple';
+import { uploadFile } from '../../../utils/dataManager';
 
 function AdminProductEditPage(props) {
     const { id } = useParams();
@@ -23,6 +25,7 @@ function AdminProductEditPage(props) {
     const formID = "new_product";
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [files, setFiles] = useState(null);
 
     const titleForm = "Modification du produit";
     const fields = [
@@ -71,6 +74,12 @@ function AdminProductEditPage(props) {
                     onChange={(selected) => setSelectedCategories(selected)}
                     options={categories}
                 />
+        },
+        {
+            id: formID + "_5",
+            label: "Images",
+            input:
+                <InputFileMultiple onChange={setFiles} />
         }
     ];
 
@@ -83,13 +92,25 @@ function AdminProductEditPage(props) {
         event.preventDefault();
 
         try {
+
             const productData = {
                 name,
                 description,
                 price,
                 operation: `/api/operations/${operationToken}`,
-                categories: selectedCategories.map((category) => `/api/${operationToken}/categories/${category.value}`)
+                categories: selectedCategories.map((category) => `/api/${operationToken}/categories/${category.value}`),
             };
+
+            let mediaObjects = [];
+            if (files && files.length > 0) {
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    const mediaObjectIRI = await uploadFile(file);
+                    mediaObjects.push(mediaObjectIRI);
+                }
+                productData["images"] = mediaObjects;
+            }
+
             const response = await callAPI(`/api/${operationToken}/products/${id}`, 'PUT', productData);
             if (response) {
                 navigate("/admin/products")
@@ -111,23 +132,22 @@ function AdminProductEditPage(props) {
 
                 async function fetchCategories() {
                     try {
-                      console.log(selectedCategories);
-                      const response = await fetch(`${API_URL}/api/${operationToken}/categories`);
-                      const responseData = await response.json();
-                      const categoriesData = responseData['hydra:member'];
-                      const categoriesOptions = categoriesData.map((category) => ({
-                          selected:  data.categories.some((c) => c.id === category.id),
-                          value: category.id,
-                          label: category.name,
+                        const response = await fetch(`${API_URL}/api/${operationToken}/categories`);
+                        const responseData = await response.json();
+                        const categoriesData = responseData['hydra:member'];
+                        const categoriesOptions = categoriesData.map((category) => ({
+                            selected: data.categories.some((c) => c.id === category.id),
+                            value: category.id,
+                            label: category.name,
                         }));
-                      setCategories(categoriesOptions);
-                      const selectedCategoriesOptions = categoriesOptions.filter((category) => category.selected);
-                      setSelectedCategories(selectedCategoriesOptions);
+                        setCategories(categoriesOptions);
+                        const selectedCategoriesOptions = categoriesOptions.filter((category) => category.selected);
+                        setSelectedCategories(selectedCategoriesOptions);
                     } catch (error) {
-                      console.error(error);
+                        console.error(error);
                     }
-                  }
-                  fetchCategories();
+                }
+                fetchCategories();
             } catch (error) {
                 console.error(error);
             }

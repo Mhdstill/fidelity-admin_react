@@ -23,54 +23,56 @@ import AdminSettingPage from '../../Default/AdminSettingPage';
 
 const menuItems = [
   {
-      id: "item_1",
-      itemName: "Menus",
-      faIcon: faShop,
-      subItems: [
-          {
-              id: "item_1-subItem_1",
-              itemName: "Produits",
-              redirectPath: '/admin/products',
-              faIcon: faBagShopping,
-          },
-          {
-              id: "item_1-subItem_2",
-              itemName: "Catégories",
-              redirectPath: '/admin/categories',
-              faIcon: faRectangleList,
-          }
-      ],
+    id: "item_1",
+    itemName: "Menus",
+    faIcon: faShop,
+    subItems: [
+      {
+        id: "item_1-subItem_1",
+        itemName: "Produits",
+        redirectPath: '/admin/products',
+        faIcon: faBagShopping,
+      },
+      {
+        id: "item_1-subItem_2",
+        itemName: "Catégories",
+        redirectPath: '/admin/categories',
+        faIcon: faRectangleList,
+      }
+    ],
   },
   {
-      id: "item_2",
-      itemName: "Bonus",
-      redirectPath: '/admin/bonus',
-      faIcon: faGift,
+    id: "item_2",
+    itemName: "Bonus",
+    redirectPath: '/admin/bonus',
+    faIcon: faGift,
   },
   {
-      id: "item_3",
-      itemName: "Commandes",
-      redirectPath: '/admin/orders',
-      faIcon: faClipboardList,
+    id: "item_3",
+    itemName: "Commandes",
+    redirectPath: '/admin/orders',
+    faIcon: faClipboardList,
   },
   {
-      id: "item_4",
-      itemName: "Utilisateurs",
-      redirectPath: '/admin/users',
-      faIcon: faUsers,
+    id: "item_4",
+    itemName: "Utilisateurs",
+    redirectPath: '/admin/users',
+    faIcon: faUsers,
   },
   {
-      id: "item_5",
-      itemName: "Configurations",
-      redirectPath: '/admin/settings',
-      faIcon: faGear,
+    id: "item_5",
+    itemName: "Configurations",
+    redirectPath: '/admin/settings',
+    faIcon: faGear,
   },
 
 ];
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    /**
+     * ADMIN
+     */
     element: <AdminDefaultLayout menuItems={menuItems} />,
     children: [
       { index: true, element: <AdminProductNewPage /> },
@@ -127,7 +129,17 @@ const router = createBrowserRouter([
   {
     path: '/admin/login',
     element: <AdminLoginPage />
+  },
+
+
+  /**
+   * QR APP
+   */
+  {
+    path: '/:operationID',
+    element: <AdminLoginPage />
   }
+
 ]);
 
 function Router() {

@@ -9,11 +9,13 @@ import showNotification from '../../../components/Notification';
 import { useParams } from 'react-router-dom';
 import InputFloat from '../../../components/InputFloat';
 import InputURL from '../../../components/InputURL';
+import InputColor from '../../../components/InputColor';
 
 function AdminSettingPage(props) {
     const { id } = useParams();
     const { authToken, operationToken } = useContext(AuthContext);
     const [coefficient, setCoefficient] = useState(1);
+    const [colorCode, setColorCode] = useState("#f1f1f1");
     const formID = "edit_operation";
 
     const titleForm = "Paramètres";
@@ -23,6 +25,11 @@ function AdminSettingPage(props) {
             label: 'Coefficient (point/euro)',
             input:
                 <InputFloat field={coefficient} setField={setCoefficient} placeholder={"Entrez votre coefficient (point/euro)"} />
+        },
+        {
+            id: formID + "_6",
+            label: 'Code couleur',
+            input: <InputColor onChange={setColorCode} value={colorCode} />
         },
         {
             id: formID + "_2",
@@ -56,7 +63,8 @@ function AdminSettingPage(props) {
         
         try {
             const productData = {
-                coefficient
+                coefficient,
+                colorCode
             };
             const response = await callAPI(`/api/operations/${operationToken}`, 'PUT', productData);
             if (response) {
@@ -73,6 +81,7 @@ function AdminSettingPage(props) {
                 const response = await callAPI(`/api/operations/${operationToken}`, 'GET');
                 const data = await response.json();
                 setCoefficient(data.coefficient);
+                setColorCode(data.colorCode);
             } catch (error) {
                 console.error(error);
             }
