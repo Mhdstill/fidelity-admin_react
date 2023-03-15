@@ -1,15 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react';
 import AdminFormPage from '../../Default/AdminFormPage';
 import { Form } from 'react-bootstrap';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import '@ckeditor/ckeditor5-build-classic/build/translations/fr';
-import '@ckeditor/ckeditor5-build-classic/build/translations/en-gb';
 import { AuthContext } from '../../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import showNotification from '../../../components/Notification';
 import { useParams } from 'react-router-dom';
-import { API_URL, callAPI } from '../../../utils/api';
+import { callAPI } from '../../../utils/api';
 
 function AdminCategoryEditPage(props) {
     const { id } = useParams();
@@ -38,28 +34,24 @@ function AdminCategoryEditPage(props) {
         event.preventDefault();
 
         try {
-            const response = await callAPI(`/api/${operationToken}/categories/${id}`, 'PUT', {name});
+            const response = await callAPI(`/api/${operationToken}/categories/${id}`, 'PUT', { name });
             if (response) {
                 navigate("/admin/categories")
                 showNotification("La catégorie a été mise à jour avec succès.")
             }
         } catch (error) {
-            console.error(error);
+            showNotification("Une erreur a eu lieu, veuillez réessayer ultérieurement", "danger")
         }
     }
 
     useEffect(() => {
         async function fethCategory() {
             try {
-                const response = await fetch(API_URL + `/api/${operationToken}/categories/` + id, {
-                    headers: {
-                        'Authorization': `Bearer ${authToken}`
-                    }
-                });
+                const response = await callAPI(`/api/${operationToken}/categories/${id}`, 'GET');
                 const data = await response.json();
                 setName(data.name);
             } catch (error) {
-                console.error(error);
+                showNotification("Une erreur a eu lieu, veuillez réessayer ultérieurement", "danger")
             }
         }
 

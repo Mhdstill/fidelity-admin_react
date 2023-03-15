@@ -1,8 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 import AdminFormPage from '../../Default/AdminFormPage';
-import { Form } from 'react-bootstrap';
-import '@ckeditor/ckeditor5-build-classic/build/translations/fr';
-import '@ckeditor/ckeditor5-build-classic/build/translations/en-gb';
 import { AuthContext } from '../../../contexts/AuthContext';
 import { API_URL, callAPI } from '../../../utils/api';
 import showNotification from '../../../components/Notification';
@@ -10,6 +7,8 @@ import { useParams } from 'react-router-dom';
 import InputFloat from '../../../components/InputFloat';
 import InputURL from '../../../components/InputURL';
 import InputColor from '../../../components/InputColor';
+import InputFile from '../../../components/InputFile';
+import { uploadFile } from '../../../utils/dataManager';
 
 function AdminSettingPage(props) {
     const { id } = useParams();
@@ -17,6 +16,12 @@ function AdminSettingPage(props) {
     const [coefficient, setCoefficient] = useState(1);
     const [colorCode, setColorCode] = useState("#f1f1f1");
     const formID = "edit_operation";
+    const [file, setFile] = useState(null);
+    const [previewFilePath, setPreviewFilePath] = useState(null);
+    const [twitter, setTwitter] = useState('');
+    const [facebook, setFacebook] = useState('');
+    const [instagram, setInstagram] = useState('');
+    const [tiktok, SetTiktok] = useState('');
 
     const titleForm = "Paramètres";
     const fields = [
@@ -28,32 +33,37 @@ function AdminSettingPage(props) {
         },
         {
             id: formID + "_6",
-            label: 'Code couleur',
-            input: <InputColor onChange={setColorCode} value={colorCode} />
+            label: 'Code Couleur',
+            input: <InputColor setValue={setColorCode} value={colorCode} />
+        },
+        {
+            id: formID + "_7",
+            label: 'Logo',
+            input: <InputFile onChange={setFile} defaultImage={previewFilePath} />
         },
         {
             id: formID + "_2",
             label: 'Twitter',
             input:
-                <InputURL placeholder={"Entrez votre Twitter"} domain={"twitter.com"}  />
+                <InputURL value={twitter} setValue={setTwitter} placeholder={"Entrez votre Twitter"} domain={"twitter.com"}  />
         },
         {
             id: formID + "_3",
             label: 'Instagram',
             input:
-                <InputURL placeholder={"Entrez votre Instagram"} domain={"instagram.com"}  />
+                <InputURL value={instagram} setValue={setInstagram} placeholder={"Entrez votre Instagram"} domain={"instagram.com"}  />
         },
         {
             id: formID + "_4",
             label: 'Facebook',
             input:
-                <InputURL placeholder={"Entrez votre Facebook"} domain={"facebook.com"}  />
+                <InputURL value={facebook} setValue={setFacebook} placeholder={"Entrez votre Facebook"} domain={"facebook.com"}  />
         },
         {
             id: formID + "_5",
             label: 'TikTok',
             input:
-                <InputURL placeholder={"Entrez votre TikTok"} domain={"tiktok.com"}  />
+                <InputURL value={tiktok} setValue={SetTiktok} placeholder={"Entrez votre TikTok"} domain={"tiktok.com"}  />
         },
         
     ];
@@ -64,8 +74,18 @@ function AdminSettingPage(props) {
         try {
             const productData = {
                 coefficient,
-                colorCode
+                colorCode,
+                twitter,
+                facebook,
+                instagram,
+                tiktok
             };
+
+            if(file){
+                const mediaObjectIRI = await uploadFile(file);
+                productData["logo"] = mediaObjectIRI;
+            }
+
             const response = await callAPI(`/api/operations/${operationToken}`, 'PUT', productData);
             if (response) {
                 showNotification("Les paramètres ont été mis à jour avec succès.")
@@ -82,6 +102,14 @@ function AdminSettingPage(props) {
                 const data = await response.json();
                 setCoefficient(data.coefficient);
                 setColorCode(data.colorCode);
+                setTwitter(data.twitter);
+                setFacebook(data.facebook);
+                setInstagram(data.instagram);
+                SetTiktok(data.tiktok);
+                console.log(data);
+                if('logo' in data && data.logo){
+                    setPreviewFilePath(`${API_URL}/assets/img/${data.logo.filePath}`);
+                }
             } catch (error) {
                 console.error(error);
             }

@@ -1,18 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
-import TableList from '../../components/TableList';
 
-/**
- * 
- * ButtonItems : 
- * - redirectTo (facultatif)
- * - handleClick
- * - faIcon
- * - label
- * 
- */
 function ButtonDropdown(props) {
 
   const { buttonLabel, redirectTo = '', buttonItems = [] } = props;

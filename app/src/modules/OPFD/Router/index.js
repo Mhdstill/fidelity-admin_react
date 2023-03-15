@@ -1,13 +1,10 @@
-import logo from '../../../logo.svg';
 import '../../../App.css';
 import '../../../Wast.css';
-import $ from 'jquery';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import AdminDefaultLayout from '../../../components/Layouts/AdminDefaultLayout';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { faIdCard, faRectangleList, faClipboardList, faGift, faShop, faBagShopping, faUsers, faSignOutAlt, faCartShopping, faGear } from '@fortawesome/free-solid-svg-icons';
-import AdminLoginPage from '../../Default/AdminLoginPage';
+import { faRectangleList, faClipboardList, faGift, faShop, faBagShopping, faUsers, faGear } from '@fortawesome/free-solid-svg-icons';
 import AdminProductListPage from '../../Default/AdminProductPages/AdminProductListPage';
 import AdminProductNewPage from '../../Default/AdminProductPages/AdminProductNewPage';
 import AdminProductEditPage from '../../Default/AdminProductPages/AdminProductEditPage';
@@ -20,6 +17,9 @@ import AdminBonusNewPage from '../AdminBonusPages/AdminBonusNewPage';
 import AdminBonusEditPage from '../AdminBonusPages/AdminBonusEditPage';
 import AdminOrderListPage from '../AdminOrderListPage';
 import AdminSettingPage from '../../Default/AdminSettingPage';
+import AdminHomePage from '../../Default/AdminHomePage';
+import QRHomePage from '../QRHomePage';
+import QRLoginPage from '../../Default/QRLoginPage';
 
 const menuItems = [
   {
@@ -70,12 +70,17 @@ const menuItems = [
 
 const router = createBrowserRouter([
   {
+
     /**
      * ADMIN
      */
     element: <AdminDefaultLayout menuItems={menuItems} />,
     children: [
       { index: true, element: <AdminProductNewPage /> },
+      {
+        path: '/admin',
+        element: <AdminHomePage />,
+      },
       {
         path: '/admin/products',
         element: <AdminProductListPage />,
@@ -126,19 +131,14 @@ const router = createBrowserRouter([
       },
     ],
   },
-  {
-    path: '/admin/login',
-    element: <AdminLoginPage />
-  },
-
 
   /**
-   * QR APP
+   * QR App
    */
   {
-    path: '/:operationID',
-    element: <AdminLoginPage />
-  }
+    path: '/:operationToken/app',
+    element: <QRLoginPage />
+  },
 
 ]);
 

@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
+import QRLoginPage from '../modules/Default/QRLoginPage';
 
-const withAdminAuth = (WrappedComponent) => {
+const withQRAuth = (WrappedComponent) => {
   const WithAuthWrapper = (props) => {
     const { setAuthToken, authToken } = useContext(AuthContext);
     const storedToken = localStorage.getItem('authToken');
@@ -12,16 +13,14 @@ const withAdminAuth = (WrappedComponent) => {
       if (!authToken) {
         if(storedToken && storedToken !== null){
           setAuthToken(storedToken);
-        } else {
-          navigate('/login');
-        }
+        } 
       }
     }, [authToken, navigate]);
 
-    return authToken ? <WrappedComponent {...props} /> : null;
+    return authToken ? <WrappedComponent {...props} /> : <QRLoginPage />;
   };
 
   return WithAuthWrapper;
 };
 
-export default withAdminAuth;
+export default withQRAuth;

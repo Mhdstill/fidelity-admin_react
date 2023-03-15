@@ -1,18 +1,13 @@
 import React, { useState, useContext } from 'react';
 import AdminFormPage from '../../Default/AdminFormPage';
 import { Form } from 'react-bootstrap';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import '@ckeditor/ckeditor5-build-classic/build/translations/fr';
-import '@ckeditor/ckeditor5-build-classic/build/translations/en-gb';
 import { AuthContext } from '../../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
-import { API_URL, callAPI } from '../../../utils/api';
+import { callAPI } from '../../../utils/api';
 import showNotification from '../../../components/Notification';
 
-function AdminCategoryNewPage(props) {
-    const { authToken, operationToken } = useContext(AuthContext);
+function AdminCategoryNewPage() {
+    const { operationToken } = useContext(AuthContext);
     const [name, setName] = useState('');
     const navigate = useNavigate();
     const formID = "new_category";
@@ -46,7 +41,7 @@ function AdminCategoryNewPage(props) {
                 showNotification("La catégorie de produit a été créé avec succès.")
             }
         } catch (error) {
-            console.error(error);
+            showNotification("Une erreur a eu lieu, veuillez réessayer ultérieurement", "danger")
         }
     }
 

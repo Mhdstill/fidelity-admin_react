@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AuthContextProvider from './contexts/AuthContext';
+import OperationContextProvider from './contexts/OperationContext';
 
 const rootElement = document.getElementById('root');
 
@@ -10,7 +11,9 @@ const rootElement = document.getElementById('root');
 createRoot(rootElement).render(
   <React.StrictMode>
     <AuthContextProvider>
-      <App />
+      <OperationContextProvider>
+        <App />
+      </OperationContextProvider>
     </AuthContextProvider>
   </React.StrictMode>
 );

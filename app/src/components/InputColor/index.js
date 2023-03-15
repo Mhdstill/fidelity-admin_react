@@ -1,24 +1,17 @@
 import React, { useState, useEffect } from 'react';
 
 function InputColor(props) {
-  const { label, value, onChange } = props;
-
-  const [color, setColor] = useState(value);
+  const { value, setValue } = props;
 
   const handleColorChange = (event) => {
     const newColor = event.target.value;
-    setColor(newColor);
-    onChange(newColor);
+    setValue(newColor);
   };
-
-  useEffect(() => {
-    setColor(value);
-}, [value]);
 
   return (
     <div>
-      <input type="color" value={color} onChange={handleColorChange} />
-      <span>{color}</span>
+      <input type="color" value={value} onChange={handleColorChange} />
+      <span>{value}</span>
     </div>
   );
 }

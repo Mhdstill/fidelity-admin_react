@@ -4,10 +4,10 @@ import { AuthContext } from '../../../contexts/AuthContext';
 import AdminListPage from '../../Default/AdminListPage';
 import DefaultListActions from '../../../components/DefaultListActions';
 import showNotification from '../../../components/Notification';
-import { API_URL, callAPI } from '../../../utils/api';
+import { callAPI } from '../../../utils/api';
 
-function AdminCategoryListPage(props) {
-  const { operationToken, authToken } = useContext(AuthContext);
+function AdminCategoryListPage() {
+  const { operationToken } = useContext(AuthContext);
   const [categories, setCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -18,7 +18,7 @@ function AdminCategoryListPage(props) {
   useEffect(() => {
     async function fetchCategories() {
       setLoading(true); // définir l'état "loading" sur "true"
-      const response = await fetch(`https://mhd-it.fr/api/${operationToken}/categories?page=${currentPage}`);
+      const response = await callAPI(`/api/${operationToken}/categories?page=${currentPage}`, 'GET');
       const data = await response.json();
       setCategories(data['hydra:member']);
       setTotalPages(Math.ceil(data['hydra:totalItems'] / perPage));
@@ -62,7 +62,7 @@ function AdminCategoryListPage(props) {
       currentPage={currentPage}
       totalPages={totalPages}
       onPageChange={handlePageChange}
-      loading={loading} // passer l'état "loading" au composant AdminListPage
+      loading={loading} 
     />
   );
 

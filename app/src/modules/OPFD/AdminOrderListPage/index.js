@@ -2,9 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import withAdminAuth from '../../../hoc/withAdminAuth';
 import { AuthContext } from '../../../contexts/AuthContext';
 import AdminListPage from '../../Default/AdminListPage';
-import DefaultListActions from '../../../components/DefaultListActions';
-import showNotification from '../../../components/Notification';
-import { API_URL, callAPI } from '../../../utils/api';
+import { callAPI } from '../../../utils/api';
 
 function AdminOrderListPage(props) {
   const { operationToken, authToken } = useContext(AuthContext);
@@ -18,7 +16,7 @@ function AdminOrderListPage(props) {
   useEffect(() => {
     async function fetchOrders() {
       setLoading(true); // définir l'état "loading" sur "true"
-      const response = await fetch(`https://mhd-it.fr/api/${operationToken}/orders?page=${currentPage}`);
+      const response = await callAPI(`/api/${operationToken}/orders?page=${currentPage}`, 'GET')
       const data = await response.json();
       setOrders(data['hydra:member']);
       setTotalPages(Math.ceil(data['hydra:totalItems'] / perPage));

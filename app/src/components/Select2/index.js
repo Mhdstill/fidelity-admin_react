@@ -12,7 +12,7 @@ const Select2 = (props) => {
   const handleChange = (selected) => {
     setSelected(selected);
     if (onChange) {
-      onChange(selected); // Appeler la fonction onChange passée en tant que prop pour mettre à jour les catégories sélectionnées dans le composant parent
+      onChange(selected);
     }
   };
 

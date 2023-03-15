@@ -4,12 +4,12 @@ import { AuthContext } from '../../../contexts/AuthContext';
 import AdminListPage from '../../Default/AdminListPage';
 import DefaultListActions from '../../../components/DefaultListActions';
 import showNotification from '../../../components/Notification';
-import { API_URL, callAPI } from '../../../utils/api';
+import { callAPI } from '../../../utils/api';
 import { v4 as uuidv4 } from 'uuid';
-import Carrousel from '../../../components/Carrousel';
+import SliderImg from '../../../components/SliderImg';
 
-function AdminProductListPage(props) {
-  const { operationToken, authToken } = useContext(AuthContext);
+function AdminProductListPage() {
+  const { operationToken } = useContext(AuthContext);
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -20,7 +20,7 @@ function AdminProductListPage(props) {
   useEffect(() => {
     async function fetchProducts() {
       setLoading(true); // définir l'état "loading" sur "true"
-      const response = await fetch(`https://mhd-it.fr/api/${operationToken}/products?page=${currentPage}`);
+      const response = await callAPI(`/api/${operationToken}/products?page=${currentPage}`, 'GET');
       const data = await response.json();
       setProducts(data['hydra:member']);
       setTotalPages(Math.ceil(data['hydra:totalItems'] / perPage));
@@ -42,7 +42,7 @@ function AdminProductListPage(props) {
   console.log(products);
 
   const TableRowItems = products.map(product => ([
-    (product.images && product.images.length > 0)? <Carrousel /> : '',
+    ('images' in product && product.images && product.images.length > 0)? <SliderImg images={product.images.map(obj => obj.filePath)}  /> : '',
     product.name,
     product.price + "€",
     <div dangerouslySetInnerHTML={{__html: product.description}}></div>,

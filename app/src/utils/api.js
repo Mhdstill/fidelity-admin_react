@@ -1,6 +1,6 @@
 const API_URL = "https://mhd-it.fr";
 
-const refreshAuthToken = async (refreshToken) => {
+const refreshAuthTokenAction = async (refreshToken) => {
     try {
         const response = await fetch(`${API_URL}/api/token/refresh`, {
             method: "POST",
@@ -64,7 +64,7 @@ const callAPI = async (endpoint, method, body = {}) => {
         console.log(error);
         console.log(refreshToken)
         if (error.message === "Response not OK" && response.status === 401 && refreshToken) {
-            const newAuthToken = await refreshAuthToken(refreshToken);
+            const newAuthToken = await refreshAuthTokenAction(refreshToken);
             if (newAuthToken) {
                 headers.Authorization = `Bearer ${newAuthToken}`;
                 response = await fetch(`${API_URL}${endpoint}`, {
@@ -91,4 +91,4 @@ const callAPI = async (endpoint, method, body = {}) => {
 
 
 
-export { API_URL, callAPI, refreshAuthToken }
+export { API_URL, callAPI, refreshAuthTokenAction }

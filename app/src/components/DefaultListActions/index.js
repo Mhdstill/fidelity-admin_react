@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import EllipsisDropdown from '../EllipsisDropdown';
 import { Modal, Button } from "react-bootstrap";

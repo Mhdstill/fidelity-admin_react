@@ -1,6 +1,6 @@
 import React from 'react';
 import SidebarItem from '../SidebarItem';
-import { Outlet, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 function Sidebar(props) {
 

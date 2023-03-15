@@ -1,12 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import AdminFormPage from '../../Default/AdminFormPage';
 import { Form } from 'react-bootstrap';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import '@ckeditor/ckeditor5-build-classic/build/translations/fr';
-import '@ckeditor/ckeditor5-build-classic/build/translations/en-gb';
 import { AuthContext } from '../../../contexts/AuthContext';
-import { createPath, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { API_URL, callAPI } from '../../../utils/api';
 import showNotification from '../../../components/Notification';
 import { useParams } from 'react-router-dom';
@@ -14,6 +10,7 @@ import Select2 from '../../../components/Select2';
 import InputFloat from '../../../components/InputFloat';
 import InputFileMultiple from '../../../components/InputFileMultiple';
 import { uploadFile } from '../../../utils/dataManager';
+import InputCKEditor from '../../../components/InputCKEditor';
 
 function AdminProductEditPage(props) {
     const { id } = useParams();
@@ -50,22 +47,7 @@ function AdminProductEditPage(props) {
         {
             id: formID + "_3",
             label: 'Description',
-            input:
-                <Form.Group controlId="description">
-                    <CKEditor
-                        editor={ClassicEditor}
-                        data={description}
-                        onChange={handleCKEditorChange}
-                        value={description}
-                        config={{
-                            language: 'fr', // Specify the language of the editor
-                            ckfinder: {
-                                // Upload the images to the server using the CKFinder
-                                uploadUrl: 'https://example.com/uploads'
-                            }
-                        }}
-                    />
-                </Form.Group>
+            input: <InputCKEditor value={description} setValue={setDescription} />
         }, {
             id: formID + "_4",
             label: "Catégories",
@@ -82,11 +64,6 @@ function AdminProductEditPage(props) {
                 <InputFileMultiple onChange={setFiles} />
         }
     ];
-
-    function handleCKEditorChange(event, editor) {
-        const data = editor.getData();
-        setDescription(data);
-    }
 
     const handleSubmit = async (event) => {
         event.preventDefault();

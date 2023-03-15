@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthContext';
+import { login } from '../../../utils/dataManager';
 
 const AdminLoginPage = () => {
   const [email, setEmail] = useState('');
@@ -10,35 +11,12 @@ const AdminLoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log(email, password);
-    try {
-      const response = await fetch('https://mhd-it.fr/auth', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, password })
-      });
-      const data = await response.json();
-      const { token, role, email: userEmail, module, operation, refresh_token } = data;
-      localStorage.setItem('authToken', token);
-      localStorage.setItem('operationToken', operation);
-      localStorage.setItem('userData', JSON.stringify({ email: userEmail, role: role }));
-      localStorage.setItem('module', module);
-      localStorage.setItem('refreshAuthToken', refresh_token);
-      setAuthToken(token);
-      setUserData(JSON.stringify({ email: userEmail, role: role }));
-      setModule(module);
-      setOperationToken(operation);
-      setRefreshAuthToken(refresh_token);
-    } catch (error) {
-      console.error(error);
-    }
+    await login(email, password, setAuthToken, setUserData, setModule, setOperationToken, setRefreshAuthToken);
   }
 
   useEffect(() => {
     if (authToken) {
-      navigate('/');
+      navigate('/admin');
     }
   }, [authToken, navigate]);
 

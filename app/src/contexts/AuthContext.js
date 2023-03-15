@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
+import { logout } from "../utils/dataManager";
 
 export const AuthContext = createContext({
   authToken: null,
@@ -9,8 +10,8 @@ export const AuthContext = createContext({
   setOperationToken: () => {},
   module: null,
   setModule: () => {},
-  refreshToken: null, 
-  setRefreshToken: () => {}
+  refreshAuthToken: null, 
+  setRefreshAuthToken: () => {}
 });
 
 const AuthContextProvider = ({ children }) => {
@@ -58,17 +59,7 @@ const AuthContextProvider = ({ children }) => {
           throw new Error("Token is expired or invalid");
         }
       } catch (error) {
-        console.error("Token is expired or invalid");
-        setOperationToken(null);
-        setAuthToken(null);
-        setUserData(null);
-        setModule(null);
-        setRefreshAuthToken(null);
-        localStorage.setItem('authToken', null);
-        localStorage.setItem('operationToken', null);
-        localStorage.setItem('userData', null);
-        localStorage.setItem('module', null);
-        localStorage.setItem('refreshAuthToken', null);
+        logout();
       }
     }
   };
@@ -84,6 +75,8 @@ const AuthContextProvider = ({ children }) => {
         setUserData,
         module,
         setModule,
+        refreshAuthToken,
+        setRefreshAuthToken
       }}
     >
       {children}

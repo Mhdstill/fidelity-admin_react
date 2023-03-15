@@ -3,6 +3,7 @@ import withAdminAuth from '../../../hoc/withAdminAuth';
 import { AuthContext } from '../../../contexts/AuthContext';
 import AdminListPage from '../../Default/AdminListPage';
 import { formatDatetimeToFR } from '../../../utils/date';
+import { callAPI } from '../../../utils/api';
 
 function AdminUserListPage(props) {
   const { operationToken } = useContext(AuthContext);
@@ -16,7 +17,7 @@ function AdminUserListPage(props) {
   useEffect(() => {
     async function fetchUsers() {
       setLoading(true); // définir l'état "loading" sur "true"
-      const response = await fetch(`https://mhd-it.fr/api/${operationToken}/users?page=${currentPage}`);
+      const response = await callAPI(`/api/${operationToken}/users?page=${currentPage}`, 'GET');
       const data = await response.json();
       const users = data['hydra:member'];
       setUsers(users.filter(user => !user.roles.includes("ROLE_ADMIN_CLIENT") && !user.roles.includes("ROLE_ADMIN")));

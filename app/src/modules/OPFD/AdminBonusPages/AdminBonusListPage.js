@@ -4,11 +4,11 @@ import { AuthContext } from '../../../contexts/AuthContext';
 import AdminListPage from '../../Default/AdminListPage';
 import DefaultListActions from '../../../components/DefaultListActions';
 import showNotification from '../../../components/Notification';
-import { API_URL, callAPI } from '../../../utils/api';
+import { callAPI } from '../../../utils/api';
 import { v4 as uuidv4 } from 'uuid';
 
-function AdminBonusListPage(props) {
-    const { operationToken, authToken } = useContext(AuthContext);
+function AdminBonusListPage() {
+    const { operationToken } = useContext(AuthContext);
     const [bonuses, setBonuses] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
@@ -19,7 +19,7 @@ function AdminBonusListPage(props) {
     useEffect(() => {
         async function fetchBonuses() {
             setLoading(true); // définir l'état "loading" sur "true"
-            const response = await fetch(`https://mhd-it.fr/api/${operationToken}/bonuses?page=${currentPage}`);
+            const response = await callAPI(`/api/${operationToken}/bonuses?page=${currentPage}`, 'GET')
             const data = await response.json();
             setBonuses(data['hydra:member']);
             setTotalPages(Math.ceil(data['hydra:totalItems'] / perPage));
