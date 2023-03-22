@@ -4,12 +4,15 @@ export const OperationContext = createContext({
     logoPath: null,
     setLogoPath: () => {},
     colorCode: null,
-    setColorCode: () => {}
+    setColorCode: () => {},
+    colorCodeRGBA: null,
+    setColorCodeRGBA: () => {},
 });
 
 const OperationContextProvider = ({ children }) => {
   const [logoPath, setLogoPath] = useState(null);
   const [colorCode, setColorCode] = useState(null);
+  const [colorCodeRGBA, setColorCodeRGBA] = useState(null);
 
   return (
     <OperationContext.Provider
@@ -17,7 +20,9 @@ const OperationContextProvider = ({ children }) => {
         logoPath,
         setLogoPath,
         colorCode,
-        setColorCode
+        setColorCode,
+        colorCodeRGBA,
+        setColorCodeRGBA
       }}
     >
       {children}

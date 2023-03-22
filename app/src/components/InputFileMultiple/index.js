@@ -41,9 +41,9 @@ function InputFileMultiple(props) {
                     <span className="dropzone-files-list" id="files-names" style={{ flexDirection: 'initial', flexWrap: 'wrap' }}>
                         {files.length > 0 && files.map((file, index) => (
                             <>
-                                <span class="file-block">
-                                    <span class="file-delete" onClick={() => handleFileDelete(index)}><span>+</span></span>
-                                    <span class="name"> {file.name} </span>
+                                <span className="file-block">
+                                    <span className="file-delete" onClick={() => handleFileDelete(index)}><span>+</span></span>
+                                    <span className="name"> {file.name} </span>
                                 </span>
 
                             </>

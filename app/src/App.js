@@ -9,12 +9,18 @@ import QRApp from './QRApp';
 import NotFoundPage from './modules/Default/NotFoundPage';
 import { OperationContext } from './contexts/OperationContext';
 
-
 function App() {
   const [module, setModule] = useState(null);
   const [operationToken, setOperationToken] = useState(null);
   const { module: userOnlineModule } = useContext(AuthContext);
-  const { setLogoPath, setColorCode } = useContext(OperationContext);
+  const { setLogoPath, setColorCode, setColorCodeRGBA } = useContext(OperationContext);
+
+  function hexToRgba(hex, alpha) {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
 
   // Set module from operationToken in URL
   useEffect(() => {
@@ -25,6 +31,7 @@ function App() {
           setModule(data.module.code);
           setLogoPath(data.logo.filePath);
           setColorCode(data.colorCode);
+          setColorCodeRGBA(hexToRgba(data.colorCode, 0.80));
         });
     }
   }, [operationToken]);
@@ -57,7 +64,7 @@ function App() {
       element: <AdminLoginPage />
     },
     {
-      path: '/:operationToken/app',
+      path: '/:operationToken/*',
       element: <QRApp setter={setOperationToken} />
     },
     {

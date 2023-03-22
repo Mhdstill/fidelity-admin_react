@@ -29,13 +29,13 @@ function AdminCategoryListPage() {
   }, [currentPage, operationToken]);
 
   const TableHeaderItems = [
-    "ID",
+//    "ID",
     "Nom",
     "Actions"
   ];
 
   const TableRowItems = categories.map(category => ([
-    category.id,
+ //   category.id,
     category.name,
     <DefaultListActions editRedirectPath={`/admin/category/${category.id}`} onDelete={() => handleDelete(category.id)}  />
   ]));

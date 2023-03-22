@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import NotFoundPage from './modules/Default/NotFoundPage';
+import './QRApp.css';
 
 function QRApp(props) {
 

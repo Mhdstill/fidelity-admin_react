@@ -18,8 +18,8 @@ import AdminBonusEditPage from '../AdminBonusPages/AdminBonusEditPage';
 import AdminOrderListPage from '../AdminOrderListPage';
 import AdminSettingPage from '../../Default/AdminSettingPage';
 import AdminHomePage from '../../Default/AdminHomePage';
-import QRHomePage from '../QRHomePage';
 import QRLoginPage from '../../Default/QRLoginPage';
+import QRMenuPage from '../../Default/QRMenuPage';
 
 const menuItems = [
   {
@@ -137,9 +137,12 @@ const router = createBrowserRouter([
    */
   {
     path: '/:operationToken/app',
-    element: <QRLoginPage />
+    element: <QRLoginPage continuePath="menu" />
   },
-
+  {
+    path: '/:operationToken/menu',
+    element: <QRMenuPage />
+  },
 ]);
 
 function Router() {
