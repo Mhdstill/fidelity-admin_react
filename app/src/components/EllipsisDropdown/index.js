@@ -10,7 +10,7 @@ function EllipsisDropdown(props) {
         <div className="dropdown">
             <button
                 type="button"
-                className="btn btn-icon"
+                className="btn btn-icon btn-lg"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
             >

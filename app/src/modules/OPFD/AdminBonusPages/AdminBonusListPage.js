@@ -6,6 +6,8 @@ import DefaultListActions from '../../../components/DefaultListActions';
 import showNotification from '../../../components/Notification';
 import { callAPI } from '../../../utils/api';
 import { v4 as uuidv4 } from 'uuid';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 function AdminBonusListPage() {
     const { operationToken } = useContext(AuthContext);
@@ -63,7 +65,7 @@ function AdminBonusListPage() {
     return (
         <AdminListPage
             entityName="Bonus"
-            buttonLabel="Nouveau"
+            buttonLabel={<FontAwesomeIcon icon={faPlus} />}
             buttonRedirectTo="/admin/bonus/new"
             TableHeaderItems={TableHeaderItems}
             TableRowItems={TableRowItems}

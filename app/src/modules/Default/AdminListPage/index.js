@@ -9,6 +9,7 @@ function AdminListPage(props) {
   const [searchText, setSearchText] = useState('');
 
   const {
+    customBeforeSection = <></>,
     TableHeaderItems = [],
     TableRowItems = [],
     entityName = '',
@@ -32,24 +33,33 @@ function AdminListPage(props) {
   });
 
   return (
-    <div className="w-100 px-4">
-      <div className="title-header">
-        <h1>{entityName}</h1>
+    <div className="w-100">
+
+      <div className="title-header mb-3 d-flex align-items-center justify-content-between">
+        <h1 style={{ display: 'inline-block' }}>{entityName}</h1>
         {buttonLabel ? <ButtonDropdown redirectTo={buttonRedirectTo} buttonLabel={buttonLabel} buttonItems={buttonItems} /> : (<></>)}
       </div>
-      <div className="mb-3">
-        <Searchbar placeholder={`Rechercher un ${entityName.toLowerCase()}...`} handleSearch={handleSearch} />
-      </div>
+
+      {customBeforeSection}
+
+      {
+        <div className="mb-3">
+          <Searchbar placeholder={`Rechercher un ${entityName.toLowerCase()}...`} handleSearch={handleSearch} />
+        </div>
+      }
       {loading ? (
         <div className="d-flex justify-content-center my-3">
-          <Spinner animation="border" />
+          <Spinner animation="border" style={{ color: 'var(--main-color)' }} />
         </div>
       ) : (
-        <TableList entityName={entityName} HeaderItems={TableHeaderItems} RowItems={filteredRowItems} />
+        <>
+          <TableList entityName={entityName} HeaderItems={TableHeaderItems} RowItems={filteredRowItems} />
+          <div className="d-flex justify-content-center my-3">
+            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
+          </div>
+        </>
       )}
-      <div className="d-flex justify-content-center my-3">
-        <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
-      </div>
+
     </div>
   );
 }

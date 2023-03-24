@@ -6,7 +6,31 @@ import DefaultListActions from '../../../components/DefaultListActions';
 import showNotification from '../../../components/Notification';
 import { callAPI } from '../../../utils/api';
 import { v4 as uuidv4 } from 'uuid';
-import SliderImg from '../../../components/SliderImg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import { API_URL } from '../../../utils/api';
+
+const responsive = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 5
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1
+  }
+};
 
 function AdminProductListPage() {
   const { operationToken } = useContext(AuthContext);
@@ -15,7 +39,7 @@ function AdminProductListPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true); // nouvel état loading
 
-  const perPage = 10;
+  const perPage = 1;
 
   useEffect(() => {
     async function fetchProducts() {
@@ -30,8 +54,27 @@ function AdminProductListPage() {
     fetchProducts();
   }, [currentPage, operationToken]);
 
+  const customBeforeSection =
+    <Carousel responsive={responsive}>
+      {products.map((product) => (
+        <>
+          {'images' in product && product.images && product.images.length > 0 ?
+            (
+              <div className="card mb-4 main-radius" style={{width: '18rem'}}>
+                <img className="d-block w-100 main-top-radius" src={`${API_URL}/assets/img/${product.images[0].filePath}`} style={{ height: '20rem', width: '100%' }} />
+                <div className="card-body">
+                  <h5 className="card-text text-center">{product.name}.</h5>
+                </div>
+              </div>
+            ) :
+            (<></>)
+          }
+        </>
+      ))}
+    </Carousel>
+
   const TableHeaderItems = [
-    "Image",
+    /* "Image", */
     "Nom",
     "Prix",
     "Description",
@@ -39,13 +82,11 @@ function AdminProductListPage() {
     "Actions"
   ];
 
-  console.log(products);
-
   const TableRowItems = products.map(product => ([
-    ('images' in product && product.images && product.images.length > 0)? <SliderImg images={product.images.map(obj => obj.filePath)}  /> : '',
+    /* ('images' in product && product.images && product.images.length > 0)? <SliderImg images={product.images.map(obj => obj.filePath)}  /> : '', */
     product.name,
     product.price + "€",
-    <div dangerouslySetInnerHTML={{__html: product.description}}></div>,
+    <div dangerouslySetInnerHTML={{ __html: product.description }}></div>,
     product.categories.map((category) => (<div key={uuidv4()}>{category.name} <br /></div>)),
     <DefaultListActions editRedirectPath={`/admin/product/${product.id}`} onDelete={() => handleDelete(product.id)} />
   ]));
@@ -65,14 +106,15 @@ function AdminProductListPage() {
   return (
     <AdminListPage
       entityName="Produits"
-      buttonLabel="Nouveau"
+      buttonLabel={<FontAwesomeIcon icon={faPlus} />}
       buttonRedirectTo="/admin/product/new"
       TableHeaderItems={TableHeaderItems}
       TableRowItems={TableRowItems}
       currentPage={currentPage}
       totalPages={totalPages}
       onPageChange={handlePageChange}
-      loading={loading} // passer l'état "loading" au composant AdminListPage
+      loading={loading}
+      customBeforeSection={customBeforeSection}
     />
   );
 

@@ -8,8 +8,11 @@ function Sidebar(props) {
     const location = useLocation();
 
     return (
-        <div className="sidebar" id="mainSidebar">
-            <ul id="id_menu" className="sidebar-list-wrapper">
+        <div className="sidebar">
+            <div className='className="d-flex align-items-center justify-content-between px-4'>
+                <img src="https://my.wastreet.app/public/assets/img/logos/logo-wastreet.svg" className='mb-4' alt="Logo de Wastreet" style={{ height: '80px', width: '100%', margin: 'auto', display: 'block' }} />
+            </div>
+            <ul className='sidebar-ul'>
                 {menuItems.map((item) => (
                     <SidebarItem
                         key={item.id}

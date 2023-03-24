@@ -1,5 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 function ReturnButton(props) {
 
@@ -9,11 +11,11 @@ function ReturnButton(props) {
         <button
             type="button"
             onClick={() => navigate(-1)}
-            className="btn btn-danger"
+            className="btn btn-lg btn-secondary"
             data-bs-toggle="dropdown"
             aria-expanded="false"
         >
-            Retour
+            <FontAwesomeIcon icon={faArrowLeft} />
         </button>
     );
 }

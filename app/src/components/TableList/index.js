@@ -6,6 +6,7 @@ function TableList(props) {
 
   return (
     <div className="block">
+      {/* 
       {entityName ? (
         <div className="block-header">
           <h2>
@@ -14,10 +15,10 @@ function TableList(props) {
         </div>
       ) : (
         <></>
-      )}
+      )} */}
 
-      <div className="table-overflow table-responsive">
-        <table className="wa-table list trHoverGray">
+      <div className="table-responsive-xl table-list">
+        <table className="table bg-white main-shadow">
           <thead>
             <tr>
               {HeaderItems.map((HeaderItem) => (

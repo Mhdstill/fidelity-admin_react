@@ -11,6 +11,7 @@ import InputFloat from '../../../components/InputFloat';
 import InputFileMultiple from '../../../components/InputFileMultiple';
 import { uploadFile } from '../../../utils/dataManager';
 import InputCKEditor from '../../../components/InputCKEditor';
+import InputFile from '../../../components/InputFile';
 
 function AdminProductEditPage(props) {
     const { id } = useParams();
@@ -59,9 +60,10 @@ function AdminProductEditPage(props) {
         },
         {
             id: formID + "_5",
-            label: "Images",
+            label: "Image",
             input:
-                <InputFileMultiple onChange={setFiles} />
+                <InputFile onChangeMultiple={setFiles} />
+            /* <InputFileMultiple onChange={setFiles} /> */
         }
     ];
 

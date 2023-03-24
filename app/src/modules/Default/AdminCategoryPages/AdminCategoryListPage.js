@@ -5,6 +5,8 @@ import AdminListPage from '../../Default/AdminListPage';
 import DefaultListActions from '../../../components/DefaultListActions';
 import showNotification from '../../../components/Notification';
 import { callAPI } from '../../../utils/api';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 function AdminCategoryListPage() {
   const { operationToken } = useContext(AuthContext);
@@ -55,7 +57,7 @@ function AdminCategoryListPage() {
   return (
     <AdminListPage
       entityName="Catégories"
-      buttonLabel="Nouveau"
+      buttonLabel={<FontAwesomeIcon icon={faPlus} />}
       buttonRedirectTo="/admin/category/new"
       TableHeaderItems={TableHeaderItems}
       TableRowItems={TableRowItems}

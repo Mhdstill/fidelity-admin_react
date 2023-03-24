@@ -10,6 +10,7 @@ import InputFloat from '../../../components/InputFloat';
 import { uploadFile } from '../../../utils/dataManager';
 import InputFileMultiple from '../../../components/InputFileMultiple';
 import InputCKEditor from '../../../components/InputCKEditor';
+import InputFile from '../../../components/InputFile';
 
 function AdminProductNewPage(props) {
     const navigate = useNavigate();
@@ -74,9 +75,10 @@ function AdminProductNewPage(props) {
                 />
         }, {
             id: formID + "_5",
-            label: "Image",
+            label: "Image", 
             input:
-                <InputFileMultiple onChange={setFiles} />
+                /* <InputFileMultiple onChange={setFiles} /> */
+                <InputFile onChangeMultiple={setFiles} />
         }
     ];
 

@@ -1,6 +1,5 @@
 import logo from '../../../logo.svg';
 import '../../../App.css';
-import '../../../Wast.css';
 import $ from 'jquery';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';

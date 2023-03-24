@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-import EllipsisDropdown from '../EllipsisDropdown';
 import { Modal, Button } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function DefaultListActions(props) {
 
@@ -14,21 +14,6 @@ function DefaultListActions(props) {
     const handleCloseModal = () => setShowModal(false);
     const handlEditClick = () => navigate(editRedirectPath);
     const handleDelete = () => props.onDelete();
-
-
-    const TableRowActions =
-        [
-            {
-                faIcon: faEdit,
-                label: "Modifier",
-                handleClick: handlEditClick
-            },
-            {
-                faIcon: faTrash,
-                label: "Supprimer",
-                handleClick: handleShowModal
-            },
-        ]
 
     return (
         <>
@@ -49,7 +34,10 @@ function DefaultListActions(props) {
                 </Modal.Footer>
             </Modal>
 
-            <EllipsisDropdown buttonItems={TableRowActions} />
+            <div style={{fontSize: '1.5rem', color: 'var(--main-color)', cursor: 'pointer'}}>
+                <FontAwesomeIcon icon={faEdit} className='me-2' onClick={handlEditClick} />
+                <FontAwesomeIcon icon={faTrash} onClick={handleShowModal} />
+            </div>
         </>
 
 

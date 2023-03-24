@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
@@ -13,7 +13,6 @@ function Header() {
 	return (
 		<nav className="navbar" id="navbar">
 			<a href="#" className="nav-logo">
-				<img src="https://my.wastreet.app/public/assets/img/logos/logo-wastreet.svg" alt="Logo de Wastreet" />
 			</a>
 			<div className="nav-content">
 				<div className="nav-actions ms-auto">

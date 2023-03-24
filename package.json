@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "mobile-detect": "^1.4.5",
+    "react-multi-carousel": "^2.8.2"
+  }
+}

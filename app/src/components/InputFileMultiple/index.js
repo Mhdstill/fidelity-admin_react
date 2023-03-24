@@ -27,7 +27,7 @@ function InputFileMultiple(props) {
                     <div id="id_drop_area_new_file">
                         <label className="dropzone-input" id="dropzone-wrapper_ged_2" for="dropzone_ged_2">
                             <FontAwesomeIcon icon={faCloudArrowUp} />
-                            <input type="file" onChange={handleInputChange} multiple className="photo-to-upload check-size dropzone" />
+                            <input type="file" onChange={handleInputChange} multiple className="form-control photo-to-upload check-size dropzone" />
                             <span className="text-center">
                                 Déposez un ou plusieurs fichiers
                             </span>

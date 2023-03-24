@@ -1,5 +1,4 @@
 import '../../../App.css';
-import '../../../Wast.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import AdminDefaultLayout from '../../../components/Layouts/AdminDefaultLayout';
@@ -24,46 +23,33 @@ import QRMenuPage from '../../Default/QRMenuPage';
 const menuItems = [
   {
     id: "item_1",
-    itemName: "Menus",
-    faIcon: faShop,
-    subItems: [
-      {
-        id: "item_1-subItem_1",
-        itemName: "Produits",
-        redirectPath: '/admin/products',
-        faIcon: faBagShopping,
-      },
-      {
-        id: "item_1-subItem_2",
-        itemName: "Catégories",
-        redirectPath: '/admin/categories',
-        faIcon: faRectangleList,
-      }
-    ],
+    itemName: "Produits",
+    redirectPath: '/admin/products',
+  },
+  {
+    id: "item_6",
+    itemName: "Catégories",
+    redirectPath: '/admin/categories',
   },
   {
     id: "item_2",
     itemName: "Bonus",
     redirectPath: '/admin/bonus',
-    faIcon: faGift,
   },
   {
     id: "item_3",
     itemName: "Commandes",
     redirectPath: '/admin/orders',
-    faIcon: faClipboardList,
   },
   {
     id: "item_4",
     itemName: "Utilisateurs",
     redirectPath: '/admin/users',
-    faIcon: faUsers,
   },
   {
     id: "item_5",
     itemName: "Configurations",
     redirectPath: '/admin/settings',
-    faIcon: faGear,
   },
 
 ];

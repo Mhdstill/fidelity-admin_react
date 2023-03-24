@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
 
 function InputFile(props) {
-  const { onChange, defaultImage } = props;
+  const { onChange, onChangeMultiple, defaultImage } = props;
   const [previewImage, setPreviewImage] = useState(defaultImage);
 
   function handleInputChange(event) {
@@ -10,6 +10,9 @@ function InputFile(props) {
     setPreviewImage(URL.createObjectURL(selectedFile));
     if (onChange) {
       onChange(selectedFile);
+    }
+    if (onChangeMultiple){
+      onChangeMultiple([selectedFile])
     }
   }
 

@@ -24,6 +24,7 @@ function InputURL(props) {
         onChange={(event) => setValue(event.target.value)}
         onBlur={handleUrlChange}
         placeholder={placeholder}
+        className='form-control'
       />
       {!isUrlValid && <div>L'URL indiqué est invalide </div>}
     </div>

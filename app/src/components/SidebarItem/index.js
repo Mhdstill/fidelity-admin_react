@@ -23,15 +23,15 @@ function SidebarItem(props) {
   };
 
   return ( 
-        <li className="sidebar-list-item sidebar-list-items" 
+        <li className={isActive ? "sidebar-list-item sidebar-list-items active" : "sidebar-list-item sidebar-list-items"}
             key={id}
             onClick={redirectPath ? () => navigate(redirectPath) : () => {}}
             onMouseOver={handleMouseOver}
             onMouseLeave={handleMouseLeave}
             style={{ cursor: 'pointer' }}
         >
-            <div className={isActive ? 'sidebar-list-link sidebar-list-link-active' : 'sidebar-list-link'}>
-                <FontAwesomeIcon icon={faIcon} />
+            <div className='sidebar-list-link'>
+                {/* <FontAwesomeIcon icon={faIcon} /> */}
                 <span className="sidebar-list-link-text">{itemName}</span>
             </div>
            {subItems.length !== 0 ? 
