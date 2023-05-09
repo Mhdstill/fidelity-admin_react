@@ -1,0 +1,64 @@
+.app-sidebar {
+  position: fixed;
+  left: 30px;
+  top: 30px;
+  height: calc(100% - 60px);
+  z-index: 14;
+}
+
+.sidebar {
+  background-color: var(--second-color);
+  height: 100%;
+  border-radius: var(--main-radius);
+  width: 20rem;
+  color: var(--third-color);
+  box-shadow: var(--main-shadow);
+}
+
+.app-sidebar-close {
+  transform: translateX(-21.6rem);
+  transition: var(--main-transition);
+}
+
+.app-sidebar-open {
+  transform: translateX(O);
+  transition: var(--main-transition);
+}
+
+.sidebar .sidebar-footer
+{
+  position: absolute;
+  bottom: 1rem;
+  text-align: center;
+}
+
+.sidebar .sidebar-ul {
+  list-style: none;
+  padding: 20px;
+}
+
+.sidebar .sidebar-list-item {
+  padding: 15px 0;
+  font-size: var(--p-size);
+}
+
+.sidebar .sidebar-list-item {
+  padding: 17px;
+  border-radius: var(--main-radius);
+  margin-bottom: 10px;
+}
+
+.sidebar .sidebar-list-item:hover {
+  background-color: rgba(255, 255, 255, 0.16);
+  transition: var(--main-transition);
+}
+
+.sidebar .sidebar-list-item.active {
+  color: rgba(0, 0, 0, 0.7);
+  font-weight: bold;
+  background: rgb(33, 33, 33);
+  background: -moz-linear-gradient(280deg, rgba(33, 33, 33, 1) 5%, rgba(255, 193, 7, 1) 95%);
+  background: -webkit-linear-gradient(280deg, rgba(33, 33, 33, 1) 5%, rgba(255, 193, 7, 1) 95%);
+  background: linear-gradient(280deg, rgba(33, 33, 33, 1) 5%, rgba(255, 193, 7, 1) 95%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#212121", endColorstr="#ffc107", GradientType=1);
+}

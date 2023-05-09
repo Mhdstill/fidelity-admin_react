@@ -1,22 +1,12 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import './index.css';
 
 function TableList(props) {
-  const { entityName, HeaderItems, RowItems } = props;
+  const { HeaderItems, RowItems } = props;
 
   return (
     <div className="block">
-      {/* 
-      {entityName ? (
-        <div className="block-header">
-          <h2>
-            {entityName} <span className="table-count">{RowItems.length}</span>
-          </h2>
-        </div>
-      ) : (
-        <></>
-      )} */}
-
       <div className="table-responsive-xl table-list">
         <table className="table bg-white main-shadow">
           <thead>

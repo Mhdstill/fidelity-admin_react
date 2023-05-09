@@ -1,0 +1,29 @@
+.table-list .table {
+    border-radius: var(--main-radius);
+    box-shadow: var(--main-shadow);
+}
+
+.table-list .table> :not(caption)>*>* {
+    padding: 1.3rem 0.5rem;
+}
+
+.table-list .table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table-list .table thead th:first-child {
+    border-top-left-radius: var(--main-radius);
+}
+
+.table-list .table thead th:last-child {
+    border-top-right-radius: var(--main-radius);
+}
+
+.table-list .table {
+    font-size: var(--p-size);
+}
+
+.form-label {
+    font-size: var(--p-size);
+}

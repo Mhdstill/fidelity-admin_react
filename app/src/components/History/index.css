@@ -1,0 +1,20 @@
+.history-block-value {
+    float: right;
+    font-weight: bold;
+    margin-right: 1rem;
+}
+.history-block {
+    box-shadow: var(--main-shadow);
+    padding: 1.2rem;
+    border-radius: var(--main-radius);
+    margin-bottom: 1rem;
+}
+
+.history-block-title {
+    font-weight: bold;
+}
+
+.history-block-date {
+    font-size: 1rem;
+    color: gray;
+}

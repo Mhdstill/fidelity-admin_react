@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import { logout } from "../utils/dataManager";
+import { API_URL, callAPI } from "../utils/api";
 
 export const AuthContext = createContext({
   authToken: null,
@@ -48,13 +49,13 @@ const AuthContextProvider = ({ children }) => {
       setRefreshAuthToken(storedRefreshAuthToken);
     }
 
-    checkTokenValidity();
+ //   checkTokenValidity();
   }, [authToken, operationToken, userData, module]);
 
   const checkTokenValidity = async () => {
     if (authToken) {
       try {
-        const response = await fetch("/api/token/check", {method: "GET"});
+        const response = await callAPI(`/api/token/check`, 'GET');
         if (!response.ok) {
           throw new Error("Token is expired or invalid");
         }

@@ -8,29 +8,8 @@ import { callAPI } from '../../../utils/api';
 import { v4 as uuidv4 } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { API_URL } from '../../../utils/api';
-
-const responsive = {
-  superLargeDesktop: {
-    // the naming can be any, depends on you.
-    breakpoint: { max: 4000, min: 3000 },
-    items: 5
-  },
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 3
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 2
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1
-  }
-};
+import CarouselMultiple from '../../../components/CarouselMultiple';
 
 function AdminProductListPage() {
   const { operationToken } = useContext(AuthContext);
@@ -38,8 +17,10 @@ function AdminProductListPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true); // nouvel état loading
+  const [carouselItems, setCarouselItems] = useState([]);
 
   const perPage = 1;
+  const items = [];
 
   useEffect(() => {
     async function fetchProducts() {
@@ -54,24 +35,16 @@ function AdminProductListPage() {
     fetchProducts();
   }, [currentPage, operationToken]);
 
-  const customBeforeSection =
-    <Carousel responsive={responsive}>
-      {products.map((product) => (
-        <>
-          {'images' in product && product.images && product.images.length > 0 ?
-            (
-              <div className="card mb-4 main-radius" style={{width: '18rem'}}>
-                <img className="d-block w-100 main-top-radius" src={`${API_URL}/assets/img/${product.images[0].filePath}`} style={{ height: '20rem', width: '100%' }} />
-                <div className="card-body">
-                  <h5 className="card-text text-center">{product.name}.</h5>
-                </div>
-              </div>
-            ) :
-            (<></>)
-          }
-        </>
-      ))}
-    </Carousel>
+  useEffect(() => {
+    for (let i = 0; i < products.length; i++) {
+      items.push({
+        id: i,
+        name: products[i].name,
+        image: products[i].images[0].filePath
+      });
+    }
+    setCarouselItems(items);
+  }, [products]);
 
   const TableHeaderItems = [
     /* "Image", */
@@ -83,7 +56,6 @@ function AdminProductListPage() {
   ];
 
   const TableRowItems = products.map(product => ([
-    /* ('images' in product && product.images && product.images.length > 0)? <SliderImg images={product.images.map(obj => obj.filePath)}  /> : '', */
     product.name,
     product.price + "€",
     <div dangerouslySetInnerHTML={{ __html: product.description }}></div>,
@@ -114,7 +86,7 @@ function AdminProductListPage() {
       totalPages={totalPages}
       onPageChange={handlePageChange}
       loading={loading}
-      customBeforeSection={customBeforeSection}
+      customBeforeSection={<CarouselMultiple items={carouselItems} />}
     />
   );
 

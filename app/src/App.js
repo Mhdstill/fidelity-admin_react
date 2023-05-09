@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import OPFDRouter from './modules/OPFD/Router';
+import MURouter from './modules/MU/Router';
 import MFDRouter from './modules/MFD/Router';
 import { AuthContext } from './contexts/AuthContext';
 import AdminLoginPage from './modules/Default/AdminLoginPage';
@@ -50,6 +51,8 @@ function App() {
       return <OPFDRouter />;
     case "MFD":
       return <MFDRouter />;
+    case "MU":
+      return <MURouter />;
   }
 
 

@@ -1,11 +1,20 @@
 import React from 'react';
 import SidebarItem from '../SidebarItem';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthContext';
+import { useContext } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import './index.css';
+import { logout } from '../../utils/dataManager';
 
 function Sidebar(props) {
 
     const { menuItems } = props;
     const location = useLocation();
+	const { userData } = useContext(AuthContext)
+	const user = JSON.parse(userData);
+	const navigate = useNavigate();
 
     return (
         <div className="sidebar">
@@ -34,6 +43,12 @@ function Sidebar(props) {
                         } />
                 ))}
             </ul>
+            <div className='sidebar-footer'>
+                <p>Connecté en tant que <u> {user.email} </u></p>
+                <button className='btn btn-primary btn-lg' onClick={() => logout(navigate, "/admin")}>
+                        <FontAwesomeIcon icon={faRightFromBracket} />
+                </button>
+            </div>
         </div>
     );
 }
