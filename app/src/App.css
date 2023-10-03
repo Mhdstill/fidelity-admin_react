@@ -1,7 +1,7 @@
 :root {
-  --main-color: #FFC107;
+  --main-color: #06D889;
   --second-color: #212121;
-  --third-color: rgba(255, 255, 255, 0.8);
+  --third-color: rgba(255, 255, 255, 1);
   --main-radius: 15px;
   --main-light-color: rgba(255, 193, 7, 0.4);
   --green-color: green;
@@ -60,7 +60,7 @@
 }
 
 .main-radius {
-  border-radius: var(--main-radius);
+  border-radius: var(--main-radius) !important;
 }
 
 .main-top-radius {
@@ -97,7 +97,7 @@
 }
 
 .hard-text {
-  font-size: 2.5rem;
+  font-size: 2.3rem;
   font-weight: bold;
   color: var(--main-color);
 }

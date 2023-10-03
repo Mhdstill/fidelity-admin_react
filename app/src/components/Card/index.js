@@ -4,9 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 function Card({ children, title, icon }) {
 
     return (
-        <div className="main-shadow main-radius bg-white w-100 p-4 mb-4">
+        <div className="card main-shadow main-radius bg-white w-100 p-4">
             {title ? (
-                <h5 className='text-center mb-4'>
+                <h5 className='text-center mb-2'>
                     <div className='home-icons'>
                         {icon ? (<FontAwesomeIcon icon={icon} />) : (<></>)}
                     </div>

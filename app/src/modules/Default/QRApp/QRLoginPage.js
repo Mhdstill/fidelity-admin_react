@@ -30,7 +30,7 @@ const QRLoginPage = (props) => {
       <div className="container py-3 h-100">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-            <img src="https://my.wastreet.app/public/assets/img/logos/logo-wastreet.svg" className='mb-2' alt="Logo de Wastreet" style={{ height: '40px', margin: 'auto', display: 'block' }} />
+            <img src="https://dev4you.fr/wp-content/uploads/2023/08/Color-logo-no-background-1.svg" className='mb-2' alt="Logo" style={{ height: '40px', margin: 'auto', display: 'block' }} />
             <div className="card shadow-2-strong" style={{ borderRadius: '1rem' }}>
               <div className="card-body p-4 text-center">
 

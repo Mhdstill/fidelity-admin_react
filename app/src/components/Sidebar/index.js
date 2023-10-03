@@ -19,7 +19,7 @@ function Sidebar(props) {
     return (
         <div className="sidebar">
             <div className='className="d-flex align-items-center justify-content-between px-4'>
-                <img src="https://my.wastreet.app/public/assets/img/logos/logo-wastreet.svg" className='mb-4' alt="Logo de Wastreet" style={{ height: '80px', width: '100%', margin: 'auto', display: 'block' }} />
+                <img src="https://dev4you.fr/wp-content/uploads/2023/08/Color-logo-no-background-1.svg" alt="Logo" style={{ height: '80px', width: '100%', margin: 'auto', display: 'block' }} />
             </div>
             <ul className='sidebar-ul'>
                 {menuItems.map((item) => (

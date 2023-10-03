@@ -9,23 +9,29 @@ import AdminProductEditPage from '../../Default/AdminProductPages/AdminProductEd
 import AdminCategoryListPage from '../../Default/AdminCategoryPages/AdminCategoryListPage';
 import AdminCategoryNewPage from '../../Default/AdminCategoryPages/AdminCategoryNewPage';
 import AdminCategoryEditPage from '../../Default/AdminCategoryPages/AdminCategoryEditPage';
-import AdminHomePage from '../../Default/AdminHomePage';
 import AdminSettingPage from '../../Default/AdminSettingPage';
+import AdminHomePage from '../AdminHomePage';
 import QRMenuPage from '../QRMenuPage';
+import UserHomePage from '../../Default/UserApp/UserHomePage';
 
 const adminMenuItems = [
   {
     id: "item_1",
+    itemName: "Accueil",
+    redirectPath: '/admin',
+  },
+  {
+    id: "item_2",
     itemName: "Produits",
     redirectPath: '/admin/products',
   },
   {
-    id: "item_6",
+    id: "item_3",
     itemName: "Catégories",
     redirectPath: '/admin/categories',
   },
   {
-    id: "item_5",
+    id: "item_4",
     itemName: "Configurations",
     redirectPath: '/admin/settings',
   },
@@ -41,7 +47,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/admin',
-        element: <AdminProductListPage />,
+        element: <AdminHomePage />,
       },
       {
         path: '/admin/products',

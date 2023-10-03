@@ -16,7 +16,6 @@ import AdminBonusNewPage from '../AdminBonusPages/AdminBonusNewPage';
 import AdminBonusEditPage from '../AdminBonusPages/AdminBonusEditPage';
 import AdminOrderListPage from '../AdminOrderListPage';
 import AdminSettingPage from '../../Default/AdminSettingPage';
-import AdminHomePage from '../../Default/AdminHomePage';
 import UserHomePage from '../../Default/UserApp/UserHomePage';
 import QRMenuPage from '../../Default/QRApp/QRMenuPage';
 import QRLoginPage from '../../Default/QRApp/QRLoginPage';
@@ -86,10 +85,6 @@ const router = createBrowserRouter([
      */
     element: <AdminDefaultLayout menuItems={adminMenuItems} />,
     children: [
-      {
-        path: '/admin',
-        element: <AdminHomePage />,
-      },
       {
         path: '/admin/products',
         element: <AdminProductListPage />,

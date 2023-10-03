@@ -57,8 +57,8 @@
   color: rgba(0, 0, 0, 0.7);
   font-weight: bold;
   background: rgb(33, 33, 33);
-  background: -moz-linear-gradient(280deg, rgba(33, 33, 33, 1) 5%, rgba(255, 193, 7, 1) 95%);
-  background: -webkit-linear-gradient(280deg, rgba(33, 33, 33, 1) 5%, rgba(255, 193, 7, 1) 95%);
-  background: linear-gradient(280deg, rgba(33, 33, 33, 1) 5%, rgba(255, 193, 7, 1) 95%);
+  background: -moz-linear-gradient(280deg, rgba(33, 33, 33, 1) 5%, rgb(6, 216, 137) 95%);
+  background: -webkit-linear-gradient(280deg, rgba(33, 33, 33, 1) 5%, rgb(6, 216, 137) 95%);
+  background: linear-gradient(280deg, rgba(33, 33, 33, 1) 5%, rgb(6, 216, 137) 95%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#212121", endColorstr="#ffc107", GradientType=1);
 }
