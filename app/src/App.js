@@ -9,6 +9,9 @@ import { API_URL } from './utils/api';
 import QRApp from './QRApp';
 import NotFoundPage from './modules/Default/NotFoundPage';
 import { OperationContext } from './contexts/OperationContext';
+import RestaurantPage from './modules/Default/RestaurantPage';
+import MenuPage from './modules/Default/MenuPage';
+import MealPage from './modules/Default/MealPage';
 
 function App() {
   const [module, setModule] = useState(null);
@@ -69,6 +72,18 @@ function App() {
     {
       path: '/:operationToken/*',
       element: <QRApp setter={setOperationToken} />
+    },
+    {
+      path: '/restaurant',
+      element: <RestaurantPage />
+    },
+    {
+      path: '/menu',
+      element: <MenuPage />
+    },
+    {
+      path: '/menu/:meal',
+      element: <MealPage />
     },
     {
       path: '*',
