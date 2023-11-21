@@ -12,6 +12,7 @@ import AdminCategoryEditPage from '../../Default/AdminCategoryPages/AdminCategor
 import AdminSettingPage from '../../Default/AdminSettingPage';
 import AdminHomePage from '../AdminHomePage';
 import QRMenuPage from '../QRMenuPage';
+import QRCatalogPage from '../QRCatalogPage';
 import UserHomePage from '../../Default/UserApp/UserHomePage';
 
 const adminMenuItems = [
@@ -86,6 +87,10 @@ const router = createBrowserRouter([
   {
     path: '/:operationToken/app',
     element: <QRMenuPage />
+  },
+  {
+    path: '/:operationToken/catalog',
+    element: <QRCatalogPage />
   },
 
 ]);

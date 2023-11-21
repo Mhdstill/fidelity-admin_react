@@ -1,4 +1,4 @@
-const API_URL = "https://mhd-it.fr";
+const API_URL = "http://bohemebox.fr";
 
 const refreshAuthTokenAction = async (refreshToken) => {
     try {

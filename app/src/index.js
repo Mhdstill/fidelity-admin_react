@@ -4,6 +4,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AuthContextProvider from './contexts/AuthContext';
 import OperationContextProvider from './contexts/OperationContext';
+import './fonts/fonts.css';
 
 const rootElement = document.getElementById('root');
 

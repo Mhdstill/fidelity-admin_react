@@ -86,7 +86,7 @@ function AdminProductListPage() {
       totalPages={totalPages}
       onPageChange={handlePageChange}
       loading={loading}
-      customBeforeSection={<CarouselMultiple items={carouselItems} />}
+     // customBeforeSection={<CarouselMultiple items={carouselItems} />}
     />
   );
 
