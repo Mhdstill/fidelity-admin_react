@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import QRHeader from '../../../components/QRHeader';
 import { callAPI } from '../../../utils/api';
 import { Spinner } from 'react-bootstrap';
@@ -12,6 +12,9 @@ import RestaurantCard from '../../../components/RestaurantCard';
 import Catalog from '../../../components/Catalog';
 
 function QRCatalogPage() {
+    
+    const navigate = useNavigate();
+    const { operationToken } = useParams();
 
     return (
         <div className='container'>
@@ -36,7 +39,7 @@ function QRCatalogPage() {
                         <div className='mb-3'>
                             <span className='cp-product-name'>Lasagnes à la crème</span> <br />
                             <span className='cp-product-ingredients'>Boeuf haché, sauce tomate, ail...</span> <br />
-                            <div className='cp-product-btn'>
+                            <div className='cp-product-btn' onClick={() => navigate(`/${operationToken}/product/1`)}>
                                 <FontAwesomeIcon icon={faEye} className='me-1' />
                                 Consulter
                             </div>

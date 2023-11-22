@@ -14,6 +14,7 @@ import AdminHomePage from '../AdminHomePage';
 import QRMenuPage from '../QRMenuPage';
 import QRCatalogPage from '../QRCatalogPage';
 import UserHomePage from '../../Default/UserApp/UserHomePage';
+import QRProductPage from '../QRProductPage';
 
 const adminMenuItems = [
   {
@@ -91,6 +92,10 @@ const router = createBrowserRouter([
   {
     path: '/:operationToken/catalog',
     element: <QRCatalogPage />
+  },
+  {
+    path: '/:operationToken/product/:id',
+    element: <QRProductPage />
   },
 
 ]);

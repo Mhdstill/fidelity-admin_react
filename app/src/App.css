@@ -338,7 +338,7 @@ p {
   cursor: pointer;
 }
 
-.catalog.active{
+.catalog.active {
   background-color: var(--home-color);
   cursor: unset;
 }
@@ -352,12 +352,11 @@ p {
   margin-left: 15px;
 }
 
-.catalog.active .catalog-title{
+.catalog.active .catalog-title {
   color: white;
 }
 
-.catalog .catalog-img 
-{
+.catalog .catalog-img {
   height: 80%;
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -386,26 +385,78 @@ p {
   font-size: 2.2rem;
 }
 
-.catalog-products .cp-product-name
-{ 
+.catalog-products .cp-product-name {
   font-size: 1rem;
   font-weight: bold;
   font-family: 'Robot-bold', sans-serif;
 }
 
-.catalog-products .cp-product-ingredients 
-{
+.catalog-products .cp-product-ingredients {
   font-size: 0.8rem;
   font-family: 'Robot-bold', sans-serif;
 }
 
-.catalog-products .cp-product-btn 
-{
+.catalog-products .cp-product-btn {
   font-size: 0.9rem;
   font-weight: bold;
   font-family: 'Robot-bold', sans-serif;
   background-color: white;
   color: var(--home-color);
+  padding: 2px 15px;
+  border-radius: 10px;
+  margin-top: 5px;
+  width: fit-content;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.product-img {
+  max-width: 100%;
+  min-height: 200px;
+  max-height: 280px;
+  border-radius: 15px;
+  display: block;
+  margin: auto;
+}
+
+.product-title {
+  font-size: 2.8rem;
+  font-family: 'Smudger', sans-serif;
+  color: var(--home-color);
+  text-align: center;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.product-price {
+  position: absolute;
+  right: 1rem;
+  font-style: normal;
+  font-family: 'Roboto-Bold';
+  color: white;
+  background-color: var(--home-color);
+  padding: 1.3rem 0.4rem;
+  border-radius: 100%;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.product-ingredients {
+  text-align: center;
+  color: var(--home-orange-color);
+  font-weight: bold;
+  width: 90%;
+  display: block;
+  margin: auto;
+}
+
+.product-btn {
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-family: 'Robot-bold', sans-serif;
+  background-color: var(--home-color);
+  color: white;
   padding: 2px 15px;
   border-radius: 10px;
   margin-top: 5px;
