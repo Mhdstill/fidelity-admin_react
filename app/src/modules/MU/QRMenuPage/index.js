@@ -22,7 +22,7 @@ function QRMenuPage() {
                 </h1>
 
                 <div className='restaurant-pres mb-3'>
-                    <img className='restaurant-img' src="/restaurant.jpeg" />
+                    <img className='restaurant-img' src="https://t3.ftcdn.net/jpg/03/24/73/92/360_F_324739203_keeq8udvv0P2h1MLYJ0GLSlTBagoXS48.jpg" />
                     <p className='restaurant-title'>Pizza Feu de bois</p>
                     <p className='restaurant-subtitle'>91 Rue du Madrillet 7517</p>
                     <p className='restaurant-subtitle'>09 52 94 06 71</p>
